@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace DeliveryServiceDomain.Migrations.DeliveryService
 {
     public partial class Init : Migration
@@ -158,11 +160,11 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                 columns: new[] { "ShipmentWeightId", "Desc", "ShipmentWeightPrice" },
                 values: new object[,]
                 {
-                    { 5, "Over 10 to 20kg", 700.0 },
-                    { 4, "Over 5 to 10kg", 510.0 },
-                    { 3, "Over 2 to 5kg", 390.0 },
+                    { 1, "Up to 0,5 kg", 250.0 },
                     { 2, "Over 0,5 to 2kg", 300.0 },
-                    { 1, "Up to 0,5 kg", 250.0 }
+                    { 3, "Over 2 to 5kg", 390.0 },
+                    { 4, "Over 5 to 10kg", 510.0 },
+                    { 5, "Over 10 to 20kg", 700.0 }
                 });
 
             migrationBuilder.InsertData(
@@ -218,12 +220,6 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
 
             migrationBuilder.DropTable(
                 name: "Statuses");
-
-            migrationBuilder.DropTable(
-                name: "Customer");
-
-            migrationBuilder.DropTable(
-                name: "Deliverer");
 
             migrationBuilder.DropTable(
                 name: "ShipmentWeight");

@@ -7,26 +7,30 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace DeliveryServiceDomain.Migrations
 {
     [DbContext(typeof(PersonContext))]
-    [Migration("20220326115729_changed password hasher version")]
-    partial class changedpasswordhasherversion
+    [Migration("20230424203447_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.15")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.13")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("DeliveryServiceDomain.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -97,7 +101,7 @@ namespace DeliveryServiceDomain.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -121,17 +125,10 @@ namespace DeliveryServiceDomain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3",
+                            Id = "1",
                             ConcurrencyStamp = "1",
                             Name = "User",
                             NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "4",
-                            ConcurrencyStamp = "2",
-                            Name = "Deliverer",
-                            NormalizedName = "DELIVERER"
                         });
                 });
 
@@ -139,8 +136,9 @@ namespace DeliveryServiceDomain.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -161,15 +159,16 @@ namespace DeliveryServiceDomain.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -184,15 +183,16 @@ namespace DeliveryServiceDomain.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -207,7 +207,7 @@ namespace DeliveryServiceDomain.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
@@ -228,7 +228,7 @@ namespace DeliveryServiceDomain.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
@@ -243,28 +243,18 @@ namespace DeliveryServiceDomain.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("AspNetUserRoles", (string)null);
 
                     b.HasData(
                         new
                         {
                             UserId = 1,
-                            RoleId = 3
+                            RoleId = 1
                         },
                         new
                         {
                             UserId = 2,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 3,
-                            RoleId = 4
-                        },
-                        new
-                        {
-                            UserId = 4,
-                            RoleId = 4
+                            RoleId = 1
                         });
                 });
 
@@ -284,7 +274,7 @@ namespace DeliveryServiceDomain.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("DeliveryServiceDomain.Customer", b =>
@@ -297,20 +287,20 @@ namespace DeliveryServiceDomain.Migrations
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customer", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2e38ee56-8a11-43e2-a48e-e6b4510900c5",
+                            ConcurrencyStamp = "02465f68-25fc-4e76-86a3-37c8cbb0147c",
                             Email = "perap@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Pera",
                             LastName = "Peric",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAECSg5L5RMqpSy48KkdAWu9lz7KYfeUjAj83Ov60k6r3h/2GHRA+UtUlkBTnj3GZWsg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFHurLMIUKJPqfLyhat6CawnCO6eRqf9+bJ1f43FlFntcVr3g0y7WtKaMhB/zGccmw==",
                             PhoneNumber = "065/111-222-33",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -322,61 +312,19 @@ namespace DeliveryServiceDomain.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3853602-c837-4a0e-95c4-30be7b3e27f4",
+                            ConcurrencyStamp = "ca45297f-442e-4310-b83f-77af1730bab8",
                             Email = "zikazikic222@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Zika",
                             LastName = "Zikic",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEPs0v8LOOj+ZbgjrZtDwf1CblCzj8jeG3wWegU1edHhUpFUutYooOf/jhMun2dPvHw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECA76mpb67LInis4H6wX9FxYMFUBVDvtQeJm4GO4JroGA5IEctnU4UmiQ1PVSgfdFg==",
                             PhoneNumber = "064/444-555-66",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "zikica",
                             Address = "Mije Kovacevica 7b",
                             PostalCode = "11000"
-                        });
-                });
-
-            modelBuilder.Entity("DeliveryServiceDomain.Deliverer", b =>
-                {
-                    b.HasBaseType("DeliveryServiceDomain.Person");
-
-                    b.Property<DateTime>("DateOfEmployment")
-                        .HasColumnType("datetime2");
-
-                    b.ToTable("Deliverer");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 3,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "20706632-a1e9-4164-92dc-757914c36ec3",
-                            EmailConfirmed = false,
-                            FirstName = "Nastasja",
-                            LastName = "Bakovic",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEEeRnYAitIOLiptD2aAAT/OFEPPQaiqarC3yC5pnKOwHLbLTX45e6OZxKe3Q2VnDzA==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "nastasja",
-                            DateOfEmployment = new DateTime(1999, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b89d8b62-bebc-478e-a6b2-b2851d295620",
-                            EmailConfirmed = false,
-                            FirstName = "Stefan",
-                            LastName = "Antic",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEAG07WhKSm8llAbqawaSfe9txdtsWgjLdBkXS36CBJHfNqJQV47Kx3LNG4m/xGLBVA==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "stefan",
-                            DateOfEmployment = new DateTime(1999, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -436,15 +384,6 @@ namespace DeliveryServiceDomain.Migrations
                     b.HasOne("DeliveryServiceDomain.Person", null)
                         .WithOne()
                         .HasForeignKey("DeliveryServiceDomain.Customer", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DeliveryServiceDomain.Deliverer", b =>
-                {
-                    b.HasOne("DeliveryServiceDomain.Person", null)
-                        .WithOne()
-                        .HasForeignKey("DeliveryServiceDomain.Deliverer", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });

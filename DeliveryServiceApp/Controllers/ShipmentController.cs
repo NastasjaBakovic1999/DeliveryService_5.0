@@ -5,7 +5,6 @@ using DeliveryServiceApp.Services.Interfaces;
 using DeliveryServiceData.UnitOfWork;
 using DeliveryServiceData.UnitOfWork.Implementation;
 using DeliveryServiceDomain;
-using DeliveryServiceServices.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -27,12 +26,11 @@ namespace DeliveryServiceApp.Controllers
         private readonly IServiceAddionalServiceShipment serviceAddionalServiceShipment;
         private readonly IServiceStatus serviceStatus;
         private readonly IServiceStatusShipment serviceStatusShipment;
-        private readonly IServiceTimeline serviceTimeline;
         private readonly IMapper mapper;
 
         public ShipmentController(UserManager<Person> userManager, IServiceAdditonalService serviceAdditonalService, IServiceShipmentWeight serviceShipmentWeight,
                                   IServiceShipment serviceShipment, IServiceAddionalServiceShipment serviceAddionalServiceShipment, IServiceStatus serviceStatus,
-                                  IServiceStatusShipment serviceStatusShipment, IServiceTimeline serviceTimeline, IMapper mapper)
+                                  IServiceStatusShipment serviceStatusShipment, IMapper mapper)
         {
             this.userManager = userManager;
             this.serviceAdditonalService = serviceAdditonalService;
@@ -41,7 +39,6 @@ namespace DeliveryServiceApp.Controllers
             this.serviceAddionalServiceShipment = serviceAddionalServiceShipment;
             this.serviceStatus = serviceStatus;
             this.serviceStatusShipment = serviceStatusShipment;
-            this.serviceTimeline = serviceTimeline;
             this.mapper = mapper;
         }
 
@@ -209,159 +206,6 @@ namespace DeliveryServiceApp.Controllers
             {
                 return RedirectToAction("Error", "Home", new { Message = ex.Message });
             }
-        }
-
-        [Authorize(Roles = "Deliverer")]
-        public IActionResult AllShipments()
-        {
-            List<ShipmentDto> model = serviceShipment.GetAll();
-
-            return View(model);
-        }
-
-        [Authorize(Roles = "User, Deliverer")]
-        public IActionResult ShipmentMonitoring()
-        {
-            ShipmentMonitoringViewModel model = new ShipmentMonitoringViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult ShipmentMonitoring(ShipmentMonitoringViewModel model)
-        {
-            try
-            {
-                ShipmentDto shipment = serviceShipment.FindByCode(model.ShipmentCode);
-
-                if(shipment == null)
-                {
-                    ModelState.AddModelError(string.Empty, "The shipment code you entered does not exist. Please check your code and try again.");
-                    return View("ShipmentMonitoring");
-                }
-
-                List<StatusShipmentDto> statusShipmentList = serviceStatusShipment.GetAllByShipmentId(shipment.ShipmentId);
-
-                List<StatusDto> statusesList = serviceStatus.GetAll();
-
-                foreach (StatusShipmentDto ss in statusShipmentList)
-                {
-                    StatusShipmentViewModel ssvm = new StatusShipmentViewModel
-                    {
-                        StatusName = statusesList.Find(sl => sl.StatusId == ss.StatusId).StatusName,
-                        StatusTime = ss.StatusTime
-                    };
-                    model.ShipmentStatuses.Add(ssvm);
-                }
-
-                return View("ShipmentStatuses", model);
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Error", "Home", new { Message = ex.Message });
-            }
-        }
-
-        [Authorize(Roles = "Deliverer")]
-        [HttpGet]
-        public IActionResult EditStatus(int id)
-        {
-            try
-            {
-                ShipmentDto shipment = serviceShipment.FindByID(id);
-
-                List<StatusShipmentDto> statusShipmentList = serviceStatusShipment.GetAllByShipmentId(shipment.ShipmentId);
-                List<StatusDto> statusesList = serviceStatus.GetAll();
-                List<SelectListItem> statusesSelectList = statusesList.Select(s => new SelectListItem { Text = s.StatusName, Value = s.StatusId.ToString() }).ToList();
-
-                ShipmentMonitoringViewModel model = new ShipmentMonitoringViewModel
-                {
-                    ShipmentCode = shipment.ShipmentCode,
-                    StatusesSelect = statusesSelectList
-                };
-
-                foreach (StatusShipmentDto ss in statusShipmentList)
-                {
-                    StatusShipmentViewModel ssvm = new StatusShipmentViewModel
-                    {
-                        StatusName = statusesList.Find(sl => sl.StatusId == ss.StatusId).StatusName,
-                        StatusTime = ss.StatusTime
-                    };
-                    model.ShipmentStatuses.Add(ssvm);
-                }
-
-                return View(model);
-
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Error", "Home", new { Message = ex.Message });
-            }
-        }
-
-        [HttpPost]
-        public IActionResult EditStatus(int id, ShipmentMonitoringViewModel model)
-        {
-            try
-            {
-                ShipmentDto shipment = serviceShipment.FindByID(id);
-                List<StatusShipmentDto> statusShipmentList = serviceStatusShipment.GetAllByShipmentId(shipment.ShipmentId);
-
-                if(statusShipmentList.Any(ss => ss.StatusId == model.StatusId))
-                {
-                    ModelState.AddModelError(string.Empty, "You cannot add a status that is already in the shipment status list.");
-
-                    List<StatusDto> statusesList = serviceStatus.GetAll();
-                    List<SelectListItem> statusesSelectList = statusesList.Select(s => new SelectListItem { Text = s.StatusName, Value = s.StatusId.ToString() }).ToList();
-
-                    ShipmentMonitoringViewModel m = new ShipmentMonitoringViewModel
-                    {
-                        ShipmentCode = shipment.ShipmentCode,
-                        StatusesSelect = statusesSelectList
-                    };
-
-                    foreach (StatusShipmentDto ss in statusShipmentList)
-                    {
-                        StatusShipmentViewModel ssvm = new StatusShipmentViewModel
-                        {
-                            StatusName = statusesList.Find(sl => sl.StatusId == ss.StatusId).StatusName,
-                            StatusTime = ss.StatusTime
-                        };
-                        m.ShipmentStatuses.Add(ssvm);
-                    }
-
-                    return View(m);
-                }
-
-                var statusShipment = new StatusShipment
-                {
-                    ShipmentId = id,
-                    StatusId = model.StatusId,
-                    StatusTime = DateTime.Now
-                };
-
-                serviceStatusShipment.Add(mapper.Map<StatusShipmentDto>(statusShipment));
-
-                return RedirectToAction("EditStatus");
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Error", "Home", new { Message = ex.Message });
-            }
-        }
-
-        [Authorize(Roles = "Deliverer")]
-        [HttpGet]
-        public IActionResult Timeline(int id)
-        {
-            return View(id);
-        }
-
-        [HttpPost("Shipment/GetTimeline/{id}")]
-        public JsonResult GetTimeline([FromRoute]int id)
-        {
-            var timelines = serviceTimeline.GetAllFromProcedure(id);
-            var data = Json(new { JSONList = timelines });
-            return data;
         }
     }   
 }

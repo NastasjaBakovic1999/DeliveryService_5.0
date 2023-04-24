@@ -18,7 +18,6 @@ namespace DeliveryServiceAppTests
     {
         readonly Mock<IUnitOfWork> unitOfWork = Mocks.GetMockUnitOfWork();
         readonly Mock<IRepositoryCustomer> customerRepository = Mocks.GetMockCustomerRepository();
-        readonly Mock<IRepositoryDeliverer> delivererRepository = Mocks.GetMockDelivererRepository();
         readonly Mock<IRepositoryShipmentWeight> shipmentWeightRepository = Mocks.GetMockShipmentWeightRepository();
         IMapper mapper = Mocks.GetMockAutoMapper();
 

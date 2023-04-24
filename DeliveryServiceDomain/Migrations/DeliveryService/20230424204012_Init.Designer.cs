@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeliveryServiceDomain.Migrations.DeliveryService
 {
     [DbContext(typeof(DeliveryServiceContext))]
-    [Migration("20230120183424_GetStatusTimelineByShipmentId")]
-    partial class GetStatusTimelineByShipmentId
+    [Migration("20230424204012_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -244,19 +244,6 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                     b.HasIndex("ShipmentWeightId");
 
                     b.ToTable("Shipments", (string)null);
-                });
-
-            modelBuilder.Entity("DeliveryServiceDomain.ShipmentStatusStatistic", b =>
-                {
-                    b.Property<int>("NumberOfShipments")
-                        .HasColumnType("int")
-                        .HasColumnName("NumberOfShipments");
-
-                    b.Property<string>("StatusName")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("StatusName");
-
-                    b.ToView("ShipmentStatusStatistic");
                 });
 
             modelBuilder.Entity("DeliveryServiceDomain.ShipmentWeight", b =>

@@ -11,9 +11,6 @@
     public record CustomerDto(int Id, string UserName, string Email, string PhoneNumber, string FirstName, string LastName, string Address, string PostalCode) 
         : PersonDto( Id, UserName, Email, PhoneNumber, FirstName, LastName);
 
-    public record DelivererDto(int Id, string UserName, string Email, string PhoneNumber, string FirstName, string LastName, DateTime DateOfEmployment) 
-        : PersonDto(Id, UserName, Email, PhoneNumber, FirstName, LastName);
-
     public record ShipmentDto(int ShipmentId, string ShipmentCode, int ShipmentWeightId, string ShipmentContent, string ContactPersonName, string ContactPersonPhone, int CustomerId, double Price, string Note,
         AddressDto Sending, AddressDto Receiving, List<AdditionalServiceDto> AdditionalServices, List<StatusShipmentDto> ShipmentStatuses);
 
@@ -22,9 +19,5 @@
     public record StatusDto(int StatusId, string StatusName);
 
     public record StatusShipmentDto(int StatusId, int ShipmentId, DateTime StatusTime);
-
-    public record TimelineDto(string StatusName, DateTime StatusTime);
-
-    public record ShipmentStatusStatisticDto(string StatusName, int NumberOfShipments);
 
 }

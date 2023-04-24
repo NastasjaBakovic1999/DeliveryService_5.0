@@ -190,72 +190,6 @@ namespace DeliveryServiceAppTests
             return mockCustomerRepository;
         }
 
-        public static Mock<IRepositoryDeliverer> GetMockDelivererRepository()
-        {
-            var deliverers = new List<Deliverer>()
-            {
-                new Deliverer
-                {
-                    Id = 1,
-                    FirstName = "Pera",
-                    LastName = "Peric",
-                    UserName = "pera",
-                    Email = "pera@gmail.com",
-                    PhoneNumber = "0652233445",
-                    DateOfEmployment = new DateTime(2018, 10,1)
-                },
-                new Deliverer
-                {
-                    Id = 2,
-                    FirstName = "Mika",
-                    LastName = "Mikic",
-                    UserName = "mika",
-                    Email = "mika@gmail.com",
-                    PhoneNumber = "0652233445",
-                    DateOfEmployment = new DateTime(2017, 8,21)
-                },
-                new Deliverer
-                {
-                    Id = 3,
-                    FirstName = "Sima",
-                    LastName = "Simic",
-                    UserName = "sima",
-                    Email = "sima@gmail.com",
-                    PhoneNumber = "0652233445",
-                    DateOfEmployment = new DateTime(2020, 7,15)
-                },
-                new Deliverer
-                {
-                    Id = 4,
-                    FirstName = "Jovana",
-                    LastName = "Jovanovic",
-                    UserName = "jovana",
-                    Email = "jovana@gmail.com",
-                    PhoneNumber = "0652233445",
-                    DateOfEmployment = new DateTime(2022, 4,6)
-                },
-                new Deliverer
-                {
-                    Id = 5,
-                    FirstName = "Ana",
-                    LastName = "Anic",
-                    UserName = "ana",
-                    Email = "ana@gmail.com",
-                    PhoneNumber = "0652233445",
-                    DateOfEmployment = new DateTime(2010, 10,1)
-                }
-            };
-
-            var mockDelivererRepository = new Mock<IRepositoryDeliverer>();
-            mockDelivererRepository.Setup(x => x.GetAll()).Returns(deliverers);
-            mockDelivererRepository.Setup(x => x.FindOneByExpression(It.IsAny<Expression<Func<Deliverer, bool>>>())).Returns((Expression<Func<Deliverer, bool>> expression) =>
-            {
-                return deliverers.SingleOrDefault(expression.Compile());
-            });
-
-            return mockDelivererRepository;
-        }
-
         public static Mock<IRepositoryPerson> GetMockPersonRepository()
         {
             var people = new List<Person>()
@@ -596,7 +530,6 @@ namespace DeliveryServiceAppTests
         {
             var personUnitOfWork = new Mock<IPersonUnitOfWork>();
             personUnitOfWork.Setup(x => x.Customer).Returns(GetMockCustomerRepository().Object);
-            personUnitOfWork.Setup(x => x.Deliverer).Returns(GetMockDelivererRepository().Object);
             personUnitOfWork.Setup(x => x.Person).Returns(GetMockPersonRepository().Object);
             personUnitOfWork.Setup(x => x.Commit()).Verifiable();
             return personUnitOfWork;
@@ -609,14 +542,11 @@ namespace DeliveryServiceAppTests
                 new AdditionalServiceShipmentProfile(),
                 new AddressProfile(),
                 new CustomerProfile(),
-                new DelivererProfile(),
                 new PersonProfile(),
                 new ShipmentProfile(),
                 new ShipmentWeightProfile(),
                 new StatusProfile(),
-                new StatusShipmentProfile(),
-                new ShipmentStatusStatisticProfile(),
-                new TimelineProfile()
+                new StatusShipmentProfile()
             };
             var configuration = new MapperConfiguration(cfg => cfg.AddProfiles(profiles));
             IMapper mapper = new Mapper(configuration); 

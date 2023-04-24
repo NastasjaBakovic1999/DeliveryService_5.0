@@ -31,7 +31,7 @@ namespace DeliveryServiceApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Register([FromForm]RegisterViewModel model)
         {
-            Customer customer = new Customer
+            Customer customer = new()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
@@ -90,11 +90,6 @@ namespace DeliveryServiceApp.Controllers
             {
                 var user = await userManager.FindByNameAsync(model.Username);
                 var roles = await userManager.GetRolesAsync(user);
-
-                if (roles.Contains("Deliverer"))
-                {
-                    HttpContext.Session.SetString("userrole", "Deliverer");
-                }
 
                 if (roles.Contains("User"))
                 {

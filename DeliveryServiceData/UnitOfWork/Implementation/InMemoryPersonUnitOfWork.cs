@@ -15,7 +15,6 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
         }
 
         public IRepositoryCustomer Customer { get; set; } = new InMemoryRepositoryCustomer();
-        public IRepositoryDeliverer Deliverer { get; set; } = new InMemoryRepositoryDeliverer();
         public IRepositoryPerson Person { get; set; } = new InMemoryRepositoryPerson();
 
         public void Commit()

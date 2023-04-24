@@ -16,12 +16,10 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
         {
             this.context = context;
             Customer = new RepositoryCustomer(context);
-            Deliverer = new RepositoryDeliverer(context);
             Person = new RepositoryPerson(context);
         }
 
         public IRepositoryCustomer Customer { get; set; }
-        public IRepositoryDeliverer Deliverer { get; set; }
         public IRepositoryPerson Person { get; set; }
 
         public void Commit()

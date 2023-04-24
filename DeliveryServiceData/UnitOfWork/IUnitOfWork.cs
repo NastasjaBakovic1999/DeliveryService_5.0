@@ -14,8 +14,6 @@ namespace DeliveryServiceData.UnitOfWork
         public IRepositoryStatus Status { get; set; }
         public IRepositoryStatusShipment StatusShipment { get; set; }
         public IRepositoryShipmentWeight ShipmentWeight { get; set; }
-        public IRepositoryShipmentStatusStatistic ShipmentStatusStatistic { get; set; }
-        public IRepositoryTimeline Timeline { get; set; }
         void Commit();
     }
 }

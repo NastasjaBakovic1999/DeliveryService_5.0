@@ -244,19 +244,6 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                     b.ToTable("Shipments", (string)null);
                 });
 
-            modelBuilder.Entity("DeliveryServiceDomain.ShipmentStatusStatistic", b =>
-                {
-                    b.Property<int>("NumberOfShipments")
-                        .HasColumnType("int")
-                        .HasColumnName("NumberOfShipments");
-
-                    b.Property<string>("StatusName")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("StatusName");
-
-                    b.ToView("ShipmentStatusStatistic");
-                });
-
             modelBuilder.Entity("DeliveryServiceDomain.ShipmentWeight", b =>
                 {
                     b.Property<int>("ShipmentWeightId")

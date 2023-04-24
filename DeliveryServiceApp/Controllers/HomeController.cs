@@ -1,5 +1,4 @@
-﻿using DeliveryServiceApp.Filters;
-using DeliveryServiceApp.Models;
+﻿using DeliveryServiceApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +7,6 @@ namespace DeliveryServiceApp.Controllers
     public class HomeController : Controller
     { 
         [AllowAnonymous]
-        [RedirectDelivererFromHome]
         public IActionResult Index()
         {
             return View();

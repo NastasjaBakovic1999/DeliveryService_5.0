@@ -20,8 +20,6 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
         public IRepositoryStatus Status { get; set; } = new InMemoryRepositoryStatus();
         public IRepositoryStatusShipment StatusShipment { get; set; } = new InMemoryRepositoryStatusShipment();
         public IRepositoryShipmentWeight ShipmentWeight { get; set; } = new InMemoryRepositoryShipmentWeight();
-        public IRepositoryShipmentStatusStatistic ShipmentStatusStatistic { get; set; } = new InMemoryRepositoryShipmentStatusStatistic();
-        public IRepositoryTimeline Timeline { get; set; } = new InMemoryRepositoryTimeline();
 
         public void Commit()
         {

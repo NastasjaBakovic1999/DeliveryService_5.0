@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace DeliveryServiceDomain.Migrations
 {
     public partial class Init : Migration
@@ -185,47 +187,28 @@ namespace DeliveryServiceDomain.Migrations
                         name: "FK_Customer_AspNetUsers_Id",
                         column: x => x.Id,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Deliverer",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    DateOfEmployment = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Deliverer", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Deliverer_AspNetUsers_Id",
-                        column: x => x.Id,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { 1, 0, "350a99bb-a6bf-4773-b914-f01e9c0febcc", "perap@gmail.com", false, "Pera", "Peric", false, null, null, null, "AENeyPSGFin5nIQVypK0OiJ5VfiAPl2WH2lN5wtT3Lex5I7FmF9tAycyFQbumwjRPQ==", "065/111-222-33", false, null, false, "perica" },
-                    { 2, 0, "82f88737-a23b-4f6b-a8f7-b6ab02a260ad", "zikazikic222@gmail.com", false, "Zika", "Zikic", false, null, null, null, "ANUT70ebeElcUyaQRppJ5nf9hfhm0C8yF984+v+4/owin+fhkb1H34c1AIWUqRStgw==", "064/444-555-66", false, null, false, "zikica" },
-                    { 3, 0, "7a1849e1-5928-4bd5-bc4d-eb3d8a4b0cdc", null, false, "Nastasja", "Bakovic", false, null, null, null, "AOsVDRWbq19lhhtoaljZiJ7oagRTkhlaSg2RabhH51EvDO8W+fw+jbAeakzvCGljyw==", null, false, null, false, "nastasja" },
-                    { 4, 0, "4e4fe5b4-f086-487f-9bfd-25c3058c54cf", null, false, "Stefan", "Antic", false, null, null, null, "APYDaf/x7sQLlT17BN3Ncb+WVqTT2Rhm7uYyZjZUhxmslfg4Ib49YAWFrmqIK48JWg==", null, false, null, false, "stefan" }
-                });
+                values: new object[] { 1, 0, "02465f68-25fc-4e76-86a3-37c8cbb0147c", "perap@gmail.com", false, "Pera", "Peric", false, null, null, null, "AQAAAAEAACcQAAAAEFHurLMIUKJPqfLyhat6CawnCO6eRqf9+bJ1f43FlFntcVr3g0y7WtKaMhB/zGccmw==", "065/111-222-33", false, null, false, "perica" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { 2, 0, "ca45297f-442e-4310-b83f-77af1730bab8", "zikazikic222@gmail.com", false, "Zika", "Zikic", false, null, null, null, "AQAAAAEAACcQAAAAECA76mpb67LInis4H6wX9FxYMFUBVDvtQeJm4GO4JroGA5IEctnU4UmiQ1PVSgfdFg==", "064/444-555-66", false, null, false, "zikica" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "1", "1", "User", "USER" },
-                    { "2", "2", "Deliverer", "DELIVERER" }
-                });
+                columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+                values: new object[] { "1", "User", "USER", "1" });
+
+            migrationBuilder.InsertData(
+               table: "IdentityRole",
+               columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+               values: new object[] { "1", "User", "USER", "1" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -233,9 +216,7 @@ namespace DeliveryServiceDomain.Migrations
                 values: new object[,]
                 {
                     { 1, 1 },
-                    { 1, 2 },
-                    { 2, 3 },
-                    { 2, 4 }
+                    { 1, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -245,15 +226,6 @@ namespace DeliveryServiceDomain.Migrations
                 {
                     { 1, "Mije Kovacevica 7b", "11000" },
                     { 2, "Mije Kovacevica 7b", "11000" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Deliverer",
-                columns: new[] { "Id", "DateOfEmployment" },
-                values: new object[,]
-                {
-                    { 3, new DateTime(1999, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 4, new DateTime(1999, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -315,9 +287,6 @@ namespace DeliveryServiceDomain.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customer");
-
-            migrationBuilder.DropTable(
-                name: "Deliverer");
 
             migrationBuilder.DropTable(
                 name: "IdentityRole");
