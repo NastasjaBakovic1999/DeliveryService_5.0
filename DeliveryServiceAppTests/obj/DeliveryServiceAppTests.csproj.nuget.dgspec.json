@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceAppTests\\DeliveryServiceAppTests.csproj": {}
+    "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceAppTests\\DeliveryServiceAppTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceAppTests\\DeliveryServiceAppTests.csproj": {
+    "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceAppTests\\DeliveryServiceAppTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceAppTests\\DeliveryServiceAppTests.csproj",
+        "projectUniqueName": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceAppTests\\DeliveryServiceAppTests.csproj",
         "projectName": "DeliveryServiceAppTests",
-        "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceAppTests\\DeliveryServiceAppTests.csproj",
+        "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceAppTests\\DeliveryServiceAppTests.csproj",
         "packagesPath": "C:\\Users\\Luka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceAppTests\\obj\\",
+        "outputPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceAppTests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
@@ -38,11 +38,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj": {
-                "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj"
+              "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj": {
+                "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj"
               },
-              "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceData\\DeliveryServiceData.csproj": {
-                "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceData\\DeliveryServiceData.csproj"
+              "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj": {
+                "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj"
               }
             }
           }
@@ -88,7 +88,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -97,18 +98,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj": {
+    "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj",
+        "projectUniqueName": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj",
         "projectName": "DeliveryServiceApp",
-        "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj",
+        "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj",
         "packagesPath": "C:\\Users\\Luka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceApp\\obj\\",
+        "outputPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
@@ -135,11 +136,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceData\\DeliveryServiceData.csproj": {
-                "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceData\\DeliveryServiceData.csproj"
+              "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj": {
+                "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj"
               },
-              "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj": {
-                "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj"
+              "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj": {
+                "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj"
               }
             }
           }
@@ -199,7 +200,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -211,18 +213,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceData\\DeliveryServiceData.csproj": {
+    "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceData\\DeliveryServiceData.csproj",
+        "projectUniqueName": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj",
         "projectName": "DeliveryServiceData",
-        "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceData\\DeliveryServiceData.csproj",
+        "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj",
         "packagesPath": "C:\\Users\\Luka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceData\\obj\\",
+        "outputPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
@@ -249,8 +251,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj": {
-                "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj"
+              "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj": {
+                "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj"
               }
             }
           }
@@ -270,7 +272,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -279,18 +282,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj": {
+    "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj",
+        "projectUniqueName": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj",
         "projectName": "DeliveryServiceDomain",
-        "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj",
+        "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj",
         "packagesPath": "C:\\Users\\Luka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceDomain\\obj\\",
+        "outputPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceDomain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
@@ -362,7 +365,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -371,18 +375,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj": {
+    "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj",
+        "projectUniqueName": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj",
         "projectName": "DeliveryServiceServices",
-        "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj",
+        "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj",
         "packagesPath": "C:\\Users\\Luka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceServices\\obj\\",
+        "outputPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceServices\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
@@ -409,8 +413,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceData\\DeliveryServiceData.csproj": {
-                "projectPath": "C:\\Users\\Luka\\Desktop\\delivery3.0\\DeliveryService_3.0\\DeliveryServiceData\\DeliveryServiceData.csproj"
+              "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj": {
+                "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj"
               }
             }
           }
@@ -436,7 +440,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -445,7 +450,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
