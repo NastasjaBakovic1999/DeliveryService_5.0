@@ -103,5 +103,12 @@ namespace DeliveryServiceApp.Services.Implementation
             var shipments = unitOfWork.Shipment.GetAllOfSpecifiedUser(userId);
             return mapper.Map<List<ShipmentDto>>(shipments);
         }
-    }
+
+		public void RemoveShipment(ShipmentDto shipment)
+		{
+            var shipmentEntity = mapper.Map<Shipment>(shipment);
+			unitOfWork.Shipment.RemoveShipment(shipmentEntity);
+            unitOfWork.Commit();
+		}
+	}
 }

@@ -9,5 +9,6 @@ namespace DeliveryServiceApp.Services.Interfaces
         public void Add(ShipmentDto shipment);
         public List<ShipmentDto> GetAllOfSpecifiedUser(int? userId);
         public ShipmentDto FindByCode(string code);
+        public void RemoveShipment(ShipmentDto shipment);
     }
 }

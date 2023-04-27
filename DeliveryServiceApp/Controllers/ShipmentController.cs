@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,21 +25,17 @@ namespace DeliveryServiceApp.Controllers
         private readonly IServiceShipmentWeight serviceShipmentWeight;
         private readonly IServiceShipment serviceShipment;
         private readonly IServiceAddionalServiceShipment serviceAddionalServiceShipment;
-        private readonly IServiceStatus serviceStatus;
-        private readonly IServiceStatusShipment serviceStatusShipment;
         private readonly IMapper mapper;
 
         public ShipmentController(UserManager<Person> userManager, IServiceAdditonalService serviceAdditonalService, IServiceShipmentWeight serviceShipmentWeight,
-                                  IServiceShipment serviceShipment, IServiceAddionalServiceShipment serviceAddionalServiceShipment, IServiceStatus serviceStatus,
-                                  IServiceStatusShipment serviceStatusShipment, IMapper mapper)
+                                  IServiceShipment serviceShipment, IServiceAddionalServiceShipment serviceAddionalServiceShipment,
+                                    IMapper mapper)
         {
             this.userManager = userManager;
             this.serviceAdditonalService = serviceAdditonalService;
             this.serviceShipmentWeight = serviceShipmentWeight;
             this.serviceShipment = serviceShipment;
             this.serviceAddionalServiceShipment = serviceAddionalServiceShipment;
-            this.serviceStatus = serviceStatus;
-            this.serviceStatusShipment = serviceStatusShipment;
             this.mapper = mapper;
         }
 
@@ -150,15 +147,6 @@ namespace DeliveryServiceApp.Controllers
                     serviceAddionalServiceShipment.Add(mapper.Map<AdditionalServiceShipmentDto>(ass));
                 }
 
-                StatusShipment ss = new StatusShipment
-                {
-                    ShipmentId = newShipment.ShipmentId,
-                    StatusId = serviceStatus.GetByName("Scheduled").StatusId,
-                    StatusTime = DateTime.Now
-                };
-
-                serviceStatusShipment.Add(mapper.Map<StatusShipmentDto>(ss));
-
                 return RedirectToAction("CustomerShipments");
 
             }
@@ -207,5 +195,25 @@ namespace DeliveryServiceApp.Controllers
                 return RedirectToAction("Error", "Home", new { Message = ex.Message });
             }
         }
-    }   
+
+		public IActionResult RemoveShipment(int id)
+		{
+            try
+            {
+				var shipment = serviceShipment.FindByID(id);
+				if (shipment == null)
+				{
+					return RedirectToAction("Error", "Home", new { Message = "An error occurred while removing the shipment!" });
+				}
+
+				serviceShipment.RemoveShipment(shipment);
+
+				return RedirectToAction("CustomerShipments");
+			}
+			catch (Exception ex)
+			{
+				return RedirectToAction("Error", "Home", new { Message = ex.Message });
+			}
+		}
+	}   
 }

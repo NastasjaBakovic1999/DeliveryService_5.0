@@ -16,8 +16,6 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
         {
             this.context = context;
             Shipment = new RepositoryShipment(context);
-            Status = new RepositoryStatus(context);
-            StatusShipment = new RepositoryStatusShipment(context);
             AdditionalService = new RepositoryAdditionalService(context);
             AdditionalServiceShipment = new RepositoryAdditionalServiceShipment(context);
             ShipmentWeight = new RepositoryShipmentWeight(context);
@@ -26,8 +24,6 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
         public IRepositoryAdditionalService AdditionalService { get; set; }
         public IRepositoryAdditionalServiceShipment AdditionalServiceShipment { get; set; }
         public IRepositoryShipment Shipment { get; set; }
-        public IRepositoryStatus Status { get; set; }
-        public IRepositoryStatusShipment StatusShipment { get; set; }
         public IRepositoryShipmentWeight ShipmentWeight { get; set; }
 
         public void Commit()

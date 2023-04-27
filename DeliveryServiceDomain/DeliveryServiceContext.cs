@@ -14,8 +14,6 @@ namespace DeliveryServiceDomain
         public DbSet<Shipment> Shipments { get; set; }
         public DbSet<AdditionalService> AdditionalServices { get; set; }
         public DbSet<AdditionalServiceShipment> AdditionalServiceShipments { get; set; }
-        public DbSet<Status> Statuses { get; set; }
-        public DbSet<StatusShipment> StatusShipments { get; set; }
         public DbSet<ShipmentWeight> ShipmentWeights { get; set; }
 
         public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
@@ -30,14 +28,6 @@ namespace DeliveryServiceDomain
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StatusShipment>(ss =>
-            {
-                ss.HasKey(ss => new { ss.StatusId, ss.ShipmentId });
-                ss.HasOne(a => a.Shipment)
-                  .WithMany(b => b.ShipmentStatuses)
-                  .OnDelete(DeleteBehavior.Restrict);
-            });
-
             modelBuilder.Entity<AdditionalServiceShipment>(ass =>
             {
                 ass.HasKey(ass => new { ass.AdditionalServiceId, ass.ShipmentId });
@@ -58,8 +48,6 @@ namespace DeliveryServiceDomain
              .OwnsOne(s => s.Receiving);
 
             modelBuilder.ApplyConfiguration(new ShipmentConfiguration());
-            modelBuilder.ApplyConfiguration(new StatusConfiguration());
-            modelBuilder.ApplyConfiguration(new StatusShipmentConfiguration());
             modelBuilder.ApplyConfiguration(new AdditionalServiceConfiguration());
             modelBuilder.ApplyConfiguration(new AdditionalServiceShipmentConfiguration());
             modelBuilder.ApplyConfiguration(new ShipmentWeightConfiguration());
@@ -69,18 +57,6 @@ namespace DeliveryServiceDomain
 
         private static void Seed(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<Status>().HasData(
-                new Status { StatusId = 1, StatusName = "Scheduled" },
-                new Status { StatusId = 2, StatusName = "On the packaging" },
-                new Status { StatusId = 3, StatusName = "Stored for shipping" },
-                new Status { StatusId = 4, StatusName = "At the courier" },
-                new Status { StatusId = 5, StatusName = "In transport" },
-                new Status { StatusId = 6, StatusName = "Delivered" },
-                new Status { StatusId = 7, StatusName = "Stored on hold" },
-                new Status { StatusId = 8, StatusName = "Rejected" },
-                new Status { StatusId = 9, StatusName = "Returned to sender" }
-            );
 
             modelBuilder.Entity<AdditionalService>().HasData(
                 new AdditionalService { AdditionalServiceId = 1, AdditionalServiceName = "Signed delivery note", AdditionalServicePrice = 50},

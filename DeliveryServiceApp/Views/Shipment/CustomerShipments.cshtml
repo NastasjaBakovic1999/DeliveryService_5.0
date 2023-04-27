@@ -22,7 +22,7 @@ else {
 			<th>Sending Location</th>
 			<th>Receiving Location</th>
 			<th>Price</th>
-			<th>Check Shipment Status</th>
+			<th>Remove Shipment</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -35,12 +35,12 @@ else {
 			<td>@item.Receiving.Street, @item.Receiving.City @item.Receiving.PostalCode</td>
 			<td>@item.Price RSD</td>
 			<td>
-				<form asp-action="ShipmentMonitoring" method="post">
-					<input name="ShipmentCode" value="@item.ShipmentCode" hidden/>
-					<button type="submit" class="btn btn-link btn-sm">Check Status</button>
+				<form asp-action="RemoveShipment">
+					<input name="id" value="@item.ShipmentId" hidden />
+					<button type="submit" class="btn btn-link btn-sm">Remove</button>
 				</form>
 			</td>
-			</tr>
+		</tr>
 		   }
 		</tbody>
 	</table>

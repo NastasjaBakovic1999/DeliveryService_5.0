@@ -35,5 +35,10 @@ namespace DeliveryServiceData.Implementation
         {
             return shipments.Where(s => s.CustomerId == userId).ToList();
         }
-    }
+
+		public void RemoveShipment(Shipment shipment)
+		{
+			shipments.Remove(shipment);
+		}
+	}
 }

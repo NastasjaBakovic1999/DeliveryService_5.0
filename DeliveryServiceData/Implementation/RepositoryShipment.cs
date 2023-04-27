@@ -23,5 +23,20 @@ namespace DeliveryServiceData.Implementation
         {
             return Context.Set<Shipment>().Where(sh => sh.CustomerId == userId).ToList();
         }
-    }
+
+		public void RemoveShipment(Shipment shipment)
+		{
+            var existingAdditionalServiceShipments = Context.Set<AdditionalServiceShipment>().
+                Where(ass => ass.ShipmentId == shipment.ShipmentId);
+
+			var existingShipment = Context.Set<Shipment>().Find(shipment.ShipmentId);
+			if (existingShipment != null)
+			{
+				Context.Entry(existingShipment).State = EntityState.Detached;
+			}
+
+            Context.Set<AdditionalServiceShipment>().RemoveRange(existingAdditionalServiceShipments);
+			Context.Entry(shipment).State = EntityState.Deleted;
+		}
+	}
 }

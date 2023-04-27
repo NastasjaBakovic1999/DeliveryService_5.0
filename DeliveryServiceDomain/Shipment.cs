@@ -21,7 +21,6 @@ namespace DeliveryServiceDomain
         public Customer Customer { get; set; }
         public double Price { get; set; }
         public List<AdditionalServiceShipment> AdditionalServices { get; set; }
-        public List<StatusShipment> ShipmentStatuses { get; set; }
         public string Note { get; set; }
     }
 }
