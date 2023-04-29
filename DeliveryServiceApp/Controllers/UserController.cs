@@ -94,10 +94,6 @@ namespace DeliveryServiceApp.Controllers
 
                     Customer c = new Customer
                     {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Email = model.Email,
-                        PhoneNumber = model.PhoneNumber,
                         Address = model.Address,
                         PostalCode = model.PostalCode
                     };

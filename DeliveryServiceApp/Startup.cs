@@ -36,7 +36,6 @@ namespace DeliveryServiceApp
             services.AddScoped<IServiceAdditonalService, ServiceAdditionalService>();
             services.AddScoped<IServiceAddionalServiceShipment, ServiceAdditionalServiceShipment>();
             services.AddScoped<IServiceCustomer, ServiceCustomer>();
-            services.AddScoped<IServicePerson, ServicePerson>();
             services.AddScoped<IServiceShipment, ServiceShipment>();
             services.AddScoped<IServiceShipmentWeight, ServiceShipmentWeight>();
 

@@ -53,7 +53,7 @@ namespace DeliveryServiceDomain
             modelBuilder.ApplyConfiguration(new ShipmentWeightConfiguration());
 
             Seed(modelBuilder);
-        }
+		}
 
         private static void Seed(ModelBuilder modelBuilder)
         {
