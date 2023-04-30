@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using DataTransferObjects;
-using DeliveryServiceApp.Services.Interfaces;
+﻿using DeliveryServiceApp.Services.Interfaces;
 using DeliveryServiceData.UnitOfWork;
 using DeliveryServiceDomain;
 using System;
@@ -12,67 +10,64 @@ namespace DeliveryServiceApp.Services.Implementation
 {
     public class ServiceAdditionalServiceShipment : IServiceAddionalServiceShipment
     {
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+		private readonly IUnitOfWork unitOfWork;
 
-        public ServiceAdditionalServiceShipment(IUnitOfWork unitOfWork, IMapper mapper)
-        {
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
-        }
+		public ServiceAdditionalServiceShipment(IUnitOfWork unitOfWork)
+		{
+			this.unitOfWork = unitOfWork;
+		}
 
-        public void Add(AdditionalServiceShipmentDto additionalServiceShipment)
-        {
-            if (!IsValid(additionalServiceShipment)|| AlreadyExistInDB(additionalServiceShipment))
-            {
-                throw new ArgumentOutOfRangeException("Nevalidan unos!");
-            }
+		public void Add(AdditionalServiceShipment additionalServiceShipment)
+		{
+			if (!IsValid(additionalServiceShipment) || AlreadyExistInDB(additionalServiceShipment))
+			{
+				throw new ArgumentOutOfRangeException("Nevalidan unos!");
+			}
 
-            unitOfWork.AdditionalServiceShipment.Add(mapper.Map<AdditionalServiceShipment>(additionalServiceShipment));
-            unitOfWork.Commit();
-        }
+			unitOfWork.AdditionalServiceShipment.Add(additionalServiceShipment);
+			unitOfWork.Commit();
+		}
 
-        private bool IsValid(AdditionalServiceShipmentDto additionalServiceShipment)
-        {
-            bool valid = true;
+		private bool IsValid(AdditionalServiceShipment additionalServiceShipment)
+		{
+			bool valid = true;
 
-            if (additionalServiceShipment == null) return false;
-            if(additionalServiceShipment.AdditionalServiceId == 0 || additionalServiceShipment.ShipmentId == 0)
-            {
-                return false;
-            }
-            if (additionalServiceShipment.AdditionalServiceId < 0 || additionalServiceShipment.ShipmentId < 0)
-            {
-                return false;
-            }
+			if (additionalServiceShipment == null) return false;
+			if (additionalServiceShipment.AdditionalServiceId == 0 || additionalServiceShipment.ShipmentId == 0)
+			{
+				return false;
+			}
+			if (additionalServiceShipment.AdditionalServiceId < 0 || additionalServiceShipment.ShipmentId < 0)
+			{
+				return false;
+			}
 
-            return valid;
-        }
+			return valid;
+		}
 
-        private bool AlreadyExistInDB(AdditionalServiceShipmentDto additionalServiceShipment)
-        {
-            bool exist = false;
+		private bool AlreadyExistInDB(AdditionalServiceShipment additionalServiceShipment)
+		{
+			bool exist = false;
 
-            if(unitOfWork.AdditionalServiceShipment.GetAll().Any(a => a.AdditionalServiceId == additionalServiceShipment.AdditionalServiceId && 
-                                                                    a.ShipmentId == additionalServiceShipment.ShipmentId))
-            {
-                return true;
-            }
+			if (unitOfWork.AdditionalServiceShipment.GetAll().Any(a => a.AdditionalServiceId == additionalServiceShipment.AdditionalServiceId &&
+																	a.ShipmentId == additionalServiceShipment.ShipmentId))
+			{
+				return true;
+			}
 
-            return exist;
-        }
+			return exist;
+		}
 
-        public AdditionalServiceShipmentDto FindByID(int id, params int[] ids)
-        {
-            var additionalServiceShipment = unitOfWork.AdditionalServiceShipment.FindOneByExpression(adds=> adds.AdditionalServiceId == id && adds.ShipmentId == ids[0]);
-            return mapper.Map<AdditionalServiceShipmentDto>(additionalServiceShipment);
-        }
+		public AdditionalServiceShipment FindByID(int id, params int[] ids)
+		{
+			var additionalServiceShipment = unitOfWork.AdditionalServiceShipment.FindByID(id, ids);
+			return additionalServiceShipment;
+		}
 
-        public List<AdditionalServiceShipmentDto> GetAll()
-        {
-            var additionalServiceShipments = unitOfWork.AdditionalServiceShipment.GetAll();
-            return mapper.Map<List<AdditionalServiceShipmentDto>>(additionalServiceShipments);
-        }
+		public List<AdditionalServiceShipment> GetAll()
+		{
+			return unitOfWork.AdditionalServiceShipment.GetAll();
+		}
 
-    }
+	}
 }

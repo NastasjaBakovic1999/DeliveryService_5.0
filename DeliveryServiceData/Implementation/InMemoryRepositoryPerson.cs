@@ -2,29 +2,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DeliveryServiceData.Implementation
 {
-    public class InMemoryRepositoryPerson : IRepositoryPerson
-    {
-        private List<Person> people = new List<Person>();
+	public class InMemoryRepositoryPerson : IRepositoryPerson
+	{
+		private List<Person> people = new List<Person>();
 
-        public InMemoryRepositoryPerson()
-        {
+		public InMemoryRepositoryPerson()
+		{
 
-        }
+		}
 
-        public Person FindOneByExpression(Expression<Func<Person, bool>> expression)
-        {
-            return people.SingleOrDefault(expression.Compile());
-        }
+		public Person FindByID(int id, params int[] ids)
+		{
+			return people.Find(p => p.Id == id);
+		}
 
-        public List<Person> GetAll()
-        {
-            return people;
-        }
-    }
+		public List<Person> GetAll()
+		{
+			return people;
+		}
+	}
 }

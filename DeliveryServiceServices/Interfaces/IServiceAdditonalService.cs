@@ -1,9 +1,8 @@
-﻿using DataTransferObjects;
-using DeliveryServiceDomain;
+﻿using DeliveryServiceDomain;
 
 namespace DeliveryServiceApp.Services.Interfaces
 {
-    public interface IServiceAdditonalService: IService<AdditionalServiceDto>
+    public interface IServiceAdditonalService: IService<AdditionalService>
     {
 
     }

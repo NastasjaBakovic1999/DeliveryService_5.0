@@ -43,6 +43,9 @@
               },
               "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj": {
                 "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj"
+              },
+              "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj": {
+                "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj"
               }
             }
           }
@@ -173,6 +176,10 @@
               "target": "Package",
               "version": "[6.0.13, )"
             },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[6.0.16, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.13, )"
@@ -266,6 +273,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[6.0.16, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

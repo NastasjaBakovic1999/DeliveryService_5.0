@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using DataTransferObjects;
-using DeliveryServiceApp.Services.Interfaces;
+﻿using DeliveryServiceApp.Services.Interfaces;
 using DeliveryServiceData.UnitOfWork;
 using DeliveryServiceDomain;
 using System;
@@ -12,50 +10,46 @@ namespace DeliveryServiceApp.Services.Implementation
     public class ServiceCustomer : IServiceCustomer
     {
 
-        private readonly IPersonUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+		private readonly IPersonUnitOfWork unitOfWork;
 
-        public ServiceCustomer(IPersonUnitOfWork unitOfWork, IMapper mapper)
-        {
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
-        }
+		public ServiceCustomer(IPersonUnitOfWork unitOfWork)
+		{
+			this.unitOfWork = unitOfWork;
+		}
 
-        public void Edit(CustomerDto customer)
-        {
-            if (!IsValid(customer))
-            {
-                throw new ArgumentOutOfRangeException("Invalid entry!");
-            }
+		public void Edit(Customer customer)
+		{
+			if (!IsValid(customer))
+			{
+				throw new ArgumentOutOfRangeException("Invalid entry!");
+			}
 
-            unitOfWork.Customer.Edit(mapper.Map<Customer>(customer));
-            unitOfWork.Commit();
-        }
+			unitOfWork.Customer.Edit(customer);
+			unitOfWork.Commit();
+		}
 
-        private bool IsValid(CustomerDto customer)
-        {
-            bool valid = true;
+		private bool IsValid(Customer customer)
+		{
+			bool valid = true;
 
-            if (customer == null) return false;
-            if (string.IsNullOrEmpty(customer.Address) || string.IsNullOrEmpty(customer.PostalCode))
-            {
-                return false;
-            }
+			if (customer == null) return false;
+			if (string.IsNullOrEmpty(customer.Address) || string.IsNullOrEmpty(customer.PostalCode))
+			{
+				return false;
+			}
 
-            return valid;
-        }
+			return valid;
+		}
 
 
-        public CustomerDto FindByID(int id, params int[] ids)
-        {
-            var customer = unitOfWork.Customer.FindOneByExpression(c => c.Id == id);
-            return mapper.Map<CustomerDto>(customer);
-        }
+		public Customer FindByID(int id, params int[] ids)
+		{
+			return unitOfWork.Customer.FindByID(id, ids);
+		}
 
-        public List<CustomerDto> GetAll()
-        {
-            var customers = unitOfWork.Customer.GetAll();
-            return mapper.Map<List<CustomerDto>>(customers);
-        }
-    }
+		public List<Customer> GetAll()
+		{
+			return unitOfWork.Customer.GetAll();
+		}
+	}
 }

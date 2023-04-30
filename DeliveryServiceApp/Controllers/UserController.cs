@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DataTransferObjects;
 using DeliveryServiceApp.Models;
 using DeliveryServiceApp.Services.Interfaces;
 using DeliveryServiceData.UnitOfWork;
@@ -16,13 +15,11 @@ namespace DeliveryServiceApp.Controllers
     {
         private readonly UserManager<Person> userManager;
         private readonly IServiceCustomer serviceCustomer;
-        private readonly IMapper mapper;
 
-        public UserController(UserManager<Person> userManager, IServiceCustomer serviceCustomer, IMapper mapper)
+        public UserController(UserManager<Person> userManager, IServiceCustomer serviceCustomer)
         {
             this.userManager = userManager;
             this.serviceCustomer = serviceCustomer;
-            this.mapper = mapper;
         }
 
         [Authorize(Roles = "User")]
@@ -94,13 +91,17 @@ namespace DeliveryServiceApp.Controllers
 
                     Customer c = new Customer
                     {
-                        Address = model.Address,
+						FirstName = model.FirstName,
+					    LastName = model.LastName,
+					    Email = model.Email,
+					    PhoneNumber = model.PhoneNumber,
+					    Address = model.Address,
                         PostalCode = model.PostalCode
-                    };
+					};
 
-                    serviceCustomer.Edit(mapper.Map<CustomerDto>(c));
+					serviceCustomer.Edit(c);
 
-                    return View("Detail", model);
+					return View("Detail", model);
                 }
                 else
                 {

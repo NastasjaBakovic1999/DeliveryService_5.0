@@ -4,6 +4,7 @@ using DeliveryServiceDomain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeliveryServiceDomain.Migrations
 {
     [DbContext(typeof(PersonContext))]
-    partial class PersonContextModelSnapshot : ModelSnapshot
+    [Migration("20230429161846_SP")]
+    partial class SP
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -292,13 +294,13 @@ namespace DeliveryServiceDomain.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2517a448-8221-4d35-8527-57873a9c914c",
+                            ConcurrencyStamp = "6e01c2fe-29fe-47fb-bb30-416a6eab2c73",
                             Email = "perap@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Pera",
                             LastName = "Peric",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEEi4XxQDIQf2t8ZKjqcNJ5xadE90CRcZ7NHxxis3ph5e3FHf4bpa3/uu54Jw+AVgxg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHeGa+OWELrJdko6WOhlI1CHFV+DHoo8lZx7KnwCN3fqSGUgPhrO8OEpyZ3p6EJmhQ==",
                             PhoneNumber = "065/111-222-33",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -310,13 +312,13 @@ namespace DeliveryServiceDomain.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "22c17446-ae11-4e01-a7ae-ea6b6282574b",
+                            ConcurrencyStamp = "8e7b9245-5ce6-4f8a-b617-f9893aead4ee",
                             Email = "zikazikic222@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Zika",
                             LastName = "Zikic",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEE6VhXYwBwV0tFCiyOQyMXsrdTTc5O4YFSeqfTpcBdL4dkE0AivK4ss0i1Hl/E4FyQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECjBjMcC/D/7Ht6P0ceuBA/sDwXO2iq4vS2iC599rxZu+FVY54vBow2xXLtLsX/Hkw==",
                             PhoneNumber = "064/444-555-66",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,

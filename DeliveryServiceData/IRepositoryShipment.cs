@@ -11,6 +11,7 @@ namespace DeliveryServiceData
     {
         public void Add(Shipment shipment);
         public List<Shipment> GetAllOfSpecifiedUser(int? userId);
-        public void RemoveShipment(Shipment shipment);
+		public Shipment FindByCode(string code);
+		public void RemoveShipment(Shipment shipment);
     }
 }

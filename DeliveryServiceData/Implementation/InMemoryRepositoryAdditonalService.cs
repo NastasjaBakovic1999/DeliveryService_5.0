@@ -2,24 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DeliveryServiceData.Implementation
 {
-    public class InMemoryRepositoryAdditonalService : IRepositoryAdditionalService
-    {
-        private List<AdditionalService> additionalServices = new List<AdditionalService>();
+	public class InMemoryRepositoryAdditonalService : IRepositoryAdditionalService
+	{
+		private List<AdditionalService> additionalServices = new List<AdditionalService>();
 
-        public AdditionalService FindOneByExpression(Expression<Func<AdditionalService, bool>> expression)
-        {
-            return additionalServices.SingleOrDefault(expression.Compile());
-        }
 
-        public List<AdditionalService> GetAll()
-        {
-            return additionalServices;
-        }
-    }
+		public AdditionalService FindByID(int id, params int[] ids)
+		{
+			return additionalServices.Find(ads => ads.AdditionalServiceId == id);
+		}
+
+		public List<AdditionalService> GetAll()
+		{
+			return additionalServices;
+		}
+	}
 }

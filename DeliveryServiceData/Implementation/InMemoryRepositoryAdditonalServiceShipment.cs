@@ -8,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace DeliveryServiceData.Implementation
 {
-    public class InMemoryRepositoryAdditonalServiceShipment : IRepositoryAdditionalServiceShipment
-    {
-        private List<AdditionalServiceShipment> additionalServiceShipments = new List<AdditionalServiceShipment>();
+	public class InMemoryRepositoryAdditonalServiceShipment : IRepositoryAdditionalServiceShipment
+	{
+		private List<AdditionalServiceShipment> additionalServiceShipments = new List<AdditionalServiceShipment>();
 
-        public void Add(AdditionalServiceShipment additionalServiceShipment)
-        {
-            additionalServiceShipments.Add(additionalServiceShipment);
-        }
+		public void Add(AdditionalServiceShipment additionalServiceShipment)
+		{
+			additionalServiceShipments.Add(additionalServiceShipment);
+		}
 
-        public AdditionalServiceShipment FindOneByExpression(Expression<Func<AdditionalServiceShipment, bool>> expression)
-        {
-            return additionalServiceShipments.SingleOrDefault(expression.Compile());
-        }
+		public AdditionalServiceShipment FindByID(int id, params int[] ids)
+		{
+			return additionalServiceShipments.Find(a => a.ShipmentId == id && a.AdditionalServiceId == ids[0]);
+		}
 
-        public List<AdditionalServiceShipment> GetAll()
-        {
-            return additionalServiceShipments;
-        }
-    }
+		public List<AdditionalServiceShipment> GetAll()
+		{
+			return additionalServiceShipments;
+		}
+	}
 }

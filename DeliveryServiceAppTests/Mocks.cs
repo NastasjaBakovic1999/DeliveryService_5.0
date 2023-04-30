@@ -1,17 +1,13 @@
-using AutoMapper;
-using DataTransferObjects;
 using DeliveryServiceData;
 using DeliveryServiceData.UnitOfWork;
 using DeliveryServiceDomain;
-using DeliveryServiceServices.Profiles;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Xunit;
 
-namespace DeliveryServiceAppTests
+namespace DeliveryServiceDomain.Tests
 {
     public class Mocks
     {
@@ -53,7 +49,7 @@ namespace DeliveryServiceAppTests
 
             var mockAdditionalServiceRepository = new Mock<IRepositoryAdditionalService>();
             mockAdditionalServiceRepository.Setup(x => x.GetAll()).Returns(additionalServices);
-            mockAdditionalServiceRepository.Setup(x => x.FindOneByExpression(It.IsAny<Expression<Func<AdditionalService, bool>>>())).Returns((Expression<Func<AdditionalService, bool>> expression) => additionalServices.SingleOrDefault(expression.Compile()));
+            mockAdditionalServiceRepository.Setup(x => x.FindByID(It.IsAny<int>(), It.IsAny <int[]>())).Returns((int i, int[] j) => additionalServices.SingleOrDefault(x => x.AdditionalServiceId == i));
 
             return mockAdditionalServiceRepository;
         }
@@ -66,42 +62,42 @@ namespace DeliveryServiceAppTests
                 {
                     AdditionalServiceId = 1,
                     ShipmentId = 1,
-                    Shipment = GetMockShipmentRepository().Object.FindOneByExpression(x=>x.ShipmentId == 1),
-                    AdditionalService = GetMockAdditionalServiceRepository().Object.FindOneByExpression(x => x.AdditionalServiceId == 1)
+                    Shipment = GetMockShipmentRepository().Object.FindByID(1),
+                    AdditionalService = GetMockAdditionalServiceRepository().Object.FindByID(1)
                 },
                 new AdditionalServiceShipment
                 {
                     AdditionalServiceId = 2,
                     ShipmentId = 1,
-                    Shipment = GetMockShipmentRepository().Object.FindOneByExpression(x=>x.ShipmentId == 1),
-                    AdditionalService = GetMockAdditionalServiceRepository().Object.FindOneByExpression(x => x.AdditionalServiceId == 2)
+                    Shipment = GetMockShipmentRepository().Object.FindByID(1),
+                    AdditionalService = GetMockAdditionalServiceRepository().Object.FindByID(2)
                 },
                 new AdditionalServiceShipment
                 {
                     AdditionalServiceId = 3,
                     ShipmentId = 1,
-                    Shipment = GetMockShipmentRepository().Object.FindOneByExpression(x=>x.ShipmentId == 1),
-                    AdditionalService = GetMockAdditionalServiceRepository().Object.FindOneByExpression(x => x.AdditionalServiceId == 3)
+                    Shipment = GetMockShipmentRepository().Object.FindByID(1),
+                    AdditionalService = GetMockAdditionalServiceRepository().Object.FindByID(3)
                 },
                 new AdditionalServiceShipment
                 {
                     AdditionalServiceId = 2,
                     ShipmentId = 2,
-                    Shipment = GetMockShipmentRepository().Object.FindOneByExpression(x=>x.ShipmentId == 2),
-                    AdditionalService = GetMockAdditionalServiceRepository().Object.FindOneByExpression(x => x.AdditionalServiceId == 2)
+                    Shipment = GetMockShipmentRepository().Object.FindByID(2),
+                    AdditionalService = GetMockAdditionalServiceRepository().Object.FindByID(2)
                 },
                 new AdditionalServiceShipment
                 {
                     AdditionalServiceId = 4,
                     ShipmentId = 2,
-                    Shipment = GetMockShipmentRepository().Object.FindOneByExpression(x=>x.ShipmentId == 2),
-                    AdditionalService = GetMockAdditionalServiceRepository().Object.FindOneByExpression(x => x.AdditionalServiceId == 4)
+                    Shipment = GetMockShipmentRepository().Object.FindByID(2),
+                    AdditionalService = GetMockAdditionalServiceRepository().Object.FindByID(4)
                 },
             };
 
             var mockAdditionalServiceShipmentRepository = new Mock<IRepositoryAdditionalServiceShipment>();
             mockAdditionalServiceShipmentRepository.Setup(x => x.GetAll()).Returns(additionalServiceShipments);
-            mockAdditionalServiceShipmentRepository.Setup(x => x.FindOneByExpression(It.IsAny<Expression<Func<AdditionalServiceShipment, bool>>>())).Returns((Expression<Func<AdditionalServiceShipment, bool>> expression) => additionalServiceShipments.SingleOrDefault(expression.Compile()));
+            mockAdditionalServiceShipmentRepository.Setup(x => x.FindByID(It.IsAny<int>(), It.IsAny<int[]>())).Returns((int i, int[] j) => additionalServiceShipments.SingleOrDefault(x => x.AdditionalServiceId == i && x.ShipmentId == j[0]));
             mockAdditionalServiceShipmentRepository.Setup(x => x.Add(It.IsAny<AdditionalServiceShipment>())).Callback((AdditionalServiceShipment adss) =>
             {
                 additionalServiceShipments.Add(adss);
@@ -173,7 +169,10 @@ namespace DeliveryServiceAppTests
 
             var mockCustomerRepository = new Mock<IRepositoryCustomer>();
             mockCustomerRepository.Setup(x => x.GetAll()).Returns(customers);
-            mockCustomerRepository.Setup(x => x.FindOneByExpression(It.IsAny<Expression<Func<Customer, bool>>>())).Returns((Expression<Func<Customer, bool>> expression) => { return customers.SingleOrDefault(expression.Compile()); });
+            mockCustomerRepository.Setup(x => x.FindByID(It.IsAny<int>(), It.IsAny<int[]>())).Returns((int i, int[] j) =>
+            {
+                return customers.SingleOrDefault(c => c.Id == i);
+            });
             mockCustomerRepository.Setup(x => x.Edit(It.IsAny<Customer>())).Callback((Customer target) =>
             {
                 var original = customers.FirstOrDefault(c => c.Id == target.Id);
@@ -243,9 +242,9 @@ namespace DeliveryServiceAppTests
 
             var mockPersonRepository = new Mock<IRepositoryPerson>();
             mockPersonRepository.Setup(x => x.GetAll()).Returns(people);
-            mockPersonRepository.Setup(x => x.FindOneByExpression(It.IsAny<Expression<Func<Person, bool>>>())).Returns((Expression<Func<Person, bool>> expression) =>
+            mockPersonRepository.Setup(x => x.FindByID(It.IsAny<int>(), It.IsAny<int[]>())).Returns((int i, int[] j) =>
             {
-                return people.SingleOrDefault(expression.Compile());
+                return people.SingleOrDefault(c => c.Id == i);
             });
 
             return mockPersonRepository;
@@ -253,7 +252,7 @@ namespace DeliveryServiceAppTests
 
         public static Mock<IRepositoryShipment> GetMockShipmentRepository()
         {
-            Random rand = new();
+            Random rand = new Random();
             const string chars = "0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
 
             var shipments = new List<Shipment>()
@@ -264,25 +263,25 @@ namespace DeliveryServiceAppTests
                     ShipmentCode = new string(Enumerable.Repeat(chars, 11).Select(s => s[rand.Next(chars.Length)]).ToArray()),
                     ShipmentWeightId = 1,
                     ShipmentContent = "odeca",
-                    Sending = new Address
-                    {
-                        City = "Beograd",
-                        Street = "Mije Kovacevica 7b",
-                        PostalCode = "11060"
-                    },
-                    Receiving = new Address
-                    {
-                        City = "Priboj",
-                        Street = "Ive Lole Ribara 5",
-                        PostalCode = "31330"
-                    },
-                    ContactPersonName = "Luka Bakovic",
+				  Sending = new Address
+					{
+						City = "Beograd",
+						Street = "Mije Kovacevica 7b",
+						PostalCode = "11060"
+					},
+					Receiving = new Address
+					{
+						City = "Priboj",
+						Street = "Ive Lole Ribara 5",
+						PostalCode = "31330"
+					},
+					ContactPersonName = "Luka Bakovic",
                     ContactPersonPhone = "0652244105",
                     CustomerId = 1,
                     Price = 330,
                     Note = "stan 8",
-                    ShipmentWeight = GetMockShipmentWeightRepository().Object.FindOneByExpression(x => x.ShipmentWeightId == 1),
-                    Customer = GetMockCustomerRepository().Object.FindOneByExpression(x => x.Id == 1)
+                    ShipmentWeight = GetMockShipmentWeightRepository().Object.FindByID(1),
+                    Customer = GetMockCustomerRepository().Object.FindByID(1)
                 },
                 new Shipment
                 {
@@ -290,25 +289,25 @@ namespace DeliveryServiceAppTests
                     ShipmentCode = new string(Enumerable.Repeat(chars, 11).Select(s => s[rand.Next(chars.Length)]).ToArray()),
                     ShipmentWeightId = 3,
                     ShipmentContent = "racunar",
-                    Sending = new Address
-                    {
-                        City = "Beograd",
-                        Street = "Arsenija Carnojevica 17",
-                        PostalCode = "11060"
-                    },
-                    Receiving = new Address
-                    {
-                        City = "Kragujevac",
-                        Street = "Jablanicka 13",
-                        PostalCode = "76322"
-                    },
-                    ContactPersonName = "Marko Markovic",
+				   Sending = new Address
+					{
+						City = "Beograd",
+						Street = "Arsenija Carnojevica 17",
+						PostalCode = "11060"
+					},
+					Receiving = new Address
+					{
+						City = "Kragujevac",
+						Street = "Jablanicka 13",
+						PostalCode = "76322"
+					},
+					ContactPersonName = "Marko Markovic",
                     ContactPersonPhone = "0654433221",
                     CustomerId = 3,
                     Price = 330,
                     Note = "stan 8",
-                    ShipmentWeight = GetMockShipmentWeightRepository().Object.FindOneByExpression(x => x.ShipmentWeightId == 3),
-                    Customer = GetMockCustomerRepository().Object.FindOneByExpression(x => x.Id == 4)
+                    ShipmentWeight = GetMockShipmentWeightRepository().Object.FindByID(3),
+                    Customer = GetMockCustomerRepository().Object.FindByID(4)
                 },
                 new Shipment
                 {
@@ -316,36 +315,40 @@ namespace DeliveryServiceAppTests
                     ShipmentCode = new string(Enumerable.Repeat(chars, 11).Select(s => s[rand.Next(chars.Length)]).ToArray()),
                     ShipmentWeightId = 4,
                     ShipmentContent = "obuca",
-                     Sending = new Address
-                    {
-                        City = "Smederevo",
-                        Street = "Despota Stefana 99",
-                        PostalCode = "98222"
-                    },
-                    Receiving = new Address
-                    {
-                        City = "Obrenovac",
-                        Street = "Jurija Gagarina 10",
-                        PostalCode = "90888"
-                    },
-                    ContactPersonName = "Ante Antic",
+					  Sending = new Address
+					{
+						City = "Smederevo",
+						Street = "Despota Stefana 99",
+						PostalCode = "98222"
+					},
+					Receiving = new Address
+					{
+						City = "Obrenovac",
+						Street = "Jurija Gagarina 10",
+						PostalCode = "90888"
+					},
+					ContactPersonName = "Ante Antic",
                     CustomerId = 3,
                     Price = 330,
                     Note = "stan 8",
-                    ShipmentWeight = GetMockShipmentWeightRepository().Object.FindOneByExpression(x => x.ShipmentWeightId == 4),
-                    Customer = GetMockCustomerRepository().Object.FindOneByExpression(x => x.Id == 3)
+                    ShipmentWeight = GetMockShipmentWeightRepository().Object.FindByID(4),
+                    Customer = GetMockCustomerRepository().Object.FindByID(3)
                 }
             };
 
             var mockShipmentRepository = new Mock<IRepositoryShipment>();
             mockShipmentRepository.Setup(x => x.GetAll()).Returns(shipments);
-            mockShipmentRepository.Setup(x => x.FindOneByExpression(It.IsAny<Expression<Func<Shipment, bool>>>())).Returns((Expression<Func<Shipment, bool>> expression) =>
+            mockShipmentRepository.Setup(x => x.FindByID(It.IsAny<int>(), It.IsAny<int[]>())).Returns((int i, int[] j) =>
             {
-                return shipments.SingleOrDefault(expression.Compile());
+                return shipments.SingleOrDefault(c => c.ShipmentId == i);
             });
             mockShipmentRepository.Setup(x => x.Add(It.IsAny<Shipment>())).Callback((Shipment shipment) =>
             {
                 shipments.Add(shipment);
+            });
+            mockShipmentRepository.Setup(x => x.FindByCode(It.IsAny<string>())).Returns((string code) =>
+            {
+                return shipments.SingleOrDefault(c => c.ShipmentCode == code);
             });
             mockShipmentRepository.Setup(x => x.GetAllOfSpecifiedUser(It.IsAny<int>())).Returns((int i) =>
             {
@@ -399,9 +402,9 @@ namespace DeliveryServiceAppTests
 
             var mockShipmentWeightRepository = new Mock<IRepositoryShipmentWeight>();
             mockShipmentWeightRepository.Setup(x => x.GetAll()).Returns(shipmentWeights);
-            mockShipmentWeightRepository.Setup(x => x.FindOneByExpression(It.IsAny<Expression<Func<ShipmentWeight, bool>>>())).Returns((Expression<Func<ShipmentWeight, bool>> expression) =>
+            mockShipmentWeightRepository.Setup(x => x.FindByID(It.IsAny<int>(), It.IsAny<int[]>())).Returns((int i, int[] j) =>
             {
-                return shipmentWeights.SingleOrDefault(expression.Compile());
+                return shipmentWeights.SingleOrDefault(c => c.ShipmentWeightId == i);
             });
 
             return mockShipmentWeightRepository;
@@ -426,22 +429,5 @@ namespace DeliveryServiceAppTests
             personUnitOfWork.Setup(x => x.Commit()).Verifiable();
             return personUnitOfWork;
         }
-
-        public static IMapper GetMockAutoMapper()
-        {
-            var profiles = new List<Profile>() { 
-                new AdditionalServiceProfile(), 
-                new AdditionalServiceShipmentProfile(),
-                new AddressProfile(),
-                new CustomerProfile(),
-                new PersonProfile(),
-                new ShipmentProfile(),
-                new ShipmentWeightProfile()
-            };
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfiles(profiles));
-            IMapper mapper = new Mapper(configuration); 
-            return mapper;
-        }
-
     }
 }

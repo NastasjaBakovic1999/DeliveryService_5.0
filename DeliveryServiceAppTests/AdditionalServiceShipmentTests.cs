@@ -1,30 +1,23 @@
-﻿using AutoMapper;
-using DataTransferObjects;
-using DeliveryServiceApp.Services.Implementation;
+﻿using DeliveryServiceApp.Services.Implementation;
 using DeliveryServiceData.UnitOfWork;
-using DeliveryServiceDomain;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace DeliveryServiceAppTests
+namespace DeliveryServiceDomain.Tests
 {
-    public class AdditionalServiceShipmentServiceTests
+    public class AdditionalServiceShipmentTests
     {
         Mock<IUnitOfWork> unitOfWork = Mocks.GetMockUnitOfWork();
-        IMapper mapper = Mocks.GetMockAutoMapper();
 
         [Fact]
         public void TestServiceAdditionalServiceShipmentFindById()
         {
-            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object, mapper);
+            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object);
             var result = service.FindByID(1, new int[] {1});
-            var resultAdditionalServiceShipment = Assert.IsType<AdditionalServiceShipmentDto>(result);
-            var expected = mapper.Map<AdditionalServiceShipmentDto>(unitOfWork.Object.AdditionalServiceShipment.FindOneByExpression(adds => adds.AdditionalServiceId == 1 && adds.ShipmentId == 1));
+            var resultAdditionalServiceShipment = Assert.IsType<AdditionalServiceShipment>(result);
+            var expected = unitOfWork.Object.AdditionalServiceShipment.FindByID(1, new int[] { 1 });
             Assert.Equal(expected.AdditionalServiceId, resultAdditionalServiceShipment.AdditionalServiceId);
             Assert.Equal(expected.ShipmentId, resultAdditionalServiceShipment.ShipmentId);
         }
@@ -32,7 +25,7 @@ namespace DeliveryServiceAppTests
         [Fact]
         public void TestServiceAdditionalServiceShipmentFindByIdInvalid()
         {
-            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object, mapper);
+            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object);
             var result = service.FindByID(-4);
 
             Assert.Null(result);
@@ -41,26 +34,26 @@ namespace DeliveryServiceAppTests
         [Fact]
         public void TestServiceAdditionalServiceShipmentGetAll()
         {
-            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object, mapper);
+            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object);
             var result = service.GetAll();
-            var resultList = Assert.IsAssignableFrom<List<AdditionalServiceShipmentDto>>(result);
-            var expected = mapper.Map<List<AdditionalServiceShipmentDto>>(unitOfWork.Object.AdditionalServiceShipment.GetAll());
+            var resultList = Assert.IsAssignableFrom<List<AdditionalServiceShipment>>(result);
+            var expected = unitOfWork.Object.AdditionalServiceShipment.GetAll();
             Assert.Equal<int>(expected.Count, resultList.Count);
         }
 
         [Fact]
         public void TestServiceAdditionalServiceShipmentAdd()
         {
-            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object, mapper);
+            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object);
             var newAdditionalServiceShipment = new AdditionalServiceShipment
             {
                 AdditionalServiceId = 1,
-                AdditionalService = unitOfWork.Object.AdditionalService.FindOneByExpression(ad => ad.AdditionalServiceId == 1),
+                AdditionalService = unitOfWork.Object.AdditionalService.FindByID(1),
                 ShipmentId = 2,
-                Shipment = unitOfWork.Object.Shipment.FindOneByExpression(sh => sh.ShipmentId == 2)
+                Shipment = unitOfWork.Object.Shipment.FindByID(2)
             };
-            service.Add(mapper.Map<AdditionalServiceShipmentDto>(newAdditionalServiceShipment));
-            var additionalServiceShipment = unitOfWork.Object.AdditionalServiceShipment.FindOneByExpression(adsh => adsh.AdditionalServiceId == 1 && adsh.ShipmentId == 2);
+            service.Add(newAdditionalServiceShipment);
+            var additionalServiceShipment = service.FindByID(1, new int[] { 2 });
             Assert.Equal(newAdditionalServiceShipment.AdditionalServiceId, additionalServiceShipment.AdditionalServiceId);
             Assert.Equal(newAdditionalServiceShipment.ShipmentId, additionalServiceShipment.ShipmentId);
             unitOfWork.Verify(x => x.AdditionalServiceShipment.Add(It.Is<AdditionalServiceShipment>(p => p.AdditionalServiceId == 1 && p.ShipmentId == 2)), Times.Once);
@@ -71,9 +64,9 @@ namespace DeliveryServiceAppTests
         [MemberData(nameof(AdditionalServiceShipmentData))]
         public void TestServiceAdditionalServiceShipmentAddInvalidId(AdditionalServiceShipment newAdditionalServiceShipment)
         {
-            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object, mapper);
+            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(mapper.Map<AdditionalServiceShipmentDto>(newAdditionalServiceShipment)));
+            Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(newAdditionalServiceShipment));
             unitOfWork.Verify(x => x.AdditionalServiceShipment.Add(It.IsAny<AdditionalServiceShipment>()), Times.Never);
             unitOfWork.Verify(x => x.Commit(), Times.Never);
         }
@@ -81,16 +74,16 @@ namespace DeliveryServiceAppTests
         [Fact]
         public void TestServiceAdditionalServiceShipmentAddAlreadyExist()
         {
-            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object, mapper);
+            var service = new ServiceAdditionalServiceShipment(unitOfWork.Object);
             var newAdditionalServiceShipment = new AdditionalServiceShipment
             {
                 AdditionalServiceId = 1,
-                AdditionalService = unitOfWork.Object.AdditionalService.FindOneByExpression(ad => ad.AdditionalServiceId == 1),
+                AdditionalService = unitOfWork.Object.AdditionalService.FindByID(1),
                 ShipmentId = 1,
-                Shipment = unitOfWork.Object.Shipment.FindOneByExpression(sh => sh.ShipmentId == 1)
+                Shipment = unitOfWork.Object.Shipment.FindByID(1)
             };
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(mapper.Map<AdditionalServiceShipmentDto>(newAdditionalServiceShipment) ));
+            Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(newAdditionalServiceShipment));
             unitOfWork.Verify(x => x.AdditionalServiceShipment.Add(It.IsAny<AdditionalServiceShipment>()), Times.Never);
             unitOfWork.Verify(x => x.Commit(), Times.Never);
         }

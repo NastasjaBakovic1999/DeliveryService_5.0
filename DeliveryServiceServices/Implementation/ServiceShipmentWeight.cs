@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using DataTransferObjects;
-using DeliveryServiceApp.Services.Interfaces;
+﻿using DeliveryServiceApp.Services.Interfaces;
 using DeliveryServiceData.UnitOfWork;
 using DeliveryServiceDomain;
 using System.Collections.Generic;
@@ -9,25 +7,21 @@ namespace DeliveryServiceApp.Services.Implementation
 {
     public class ServiceShipmentWeight : IServiceShipmentWeight
     {
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+		private readonly IUnitOfWork unitOfWork;
 
-        public ServiceShipmentWeight(IUnitOfWork unitOfWork, IMapper mapper)
-        {
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
-        }
+		public ServiceShipmentWeight(IUnitOfWork unitOfWork)
+		{
+			this.unitOfWork = unitOfWork;
+		}
 
-        public ShipmentWeightDto FindByID(int id, params int[] ids)
-        {
-            var shipmentWeight = unitOfWork.ShipmentWeight.FindOneByExpression(sw => sw.ShipmentWeightId == id);
-            return mapper.Map<ShipmentWeightDto>(shipmentWeight);
-        }
+		public ShipmentWeight FindByID(int id, params int[] ids)
+		{
+			return unitOfWork.ShipmentWeight.FindByID(id, ids);
+		}
 
-        public List<ShipmentWeightDto> GetAll()
-        {
-            var shipmentWeights = unitOfWork.ShipmentWeight.GetAll();
-            return mapper.Map<List<ShipmentWeightDto>>(shipmentWeights);
-        }
-    }
+		public List<ShipmentWeight> GetAll()
+		{
+			return unitOfWork.ShipmentWeight.GetAll();
+		}
+	}
 }

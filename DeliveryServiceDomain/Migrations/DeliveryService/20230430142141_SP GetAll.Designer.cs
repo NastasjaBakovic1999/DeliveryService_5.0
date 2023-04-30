@@ -4,6 +4,7 @@ using DeliveryServiceDomain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeliveryServiceDomain.Migrations.DeliveryService
 {
     [DbContext(typeof(DeliveryServiceContext))]
-    partial class DeliveryServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20230430142141_SP GetAll")]
+    partial class SPGetAll
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
