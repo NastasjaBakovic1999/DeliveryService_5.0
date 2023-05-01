@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DeliveryServiceDomain.Tests
+namespace DeliveryServiceAppTests
 {
     public class Mocks
     {

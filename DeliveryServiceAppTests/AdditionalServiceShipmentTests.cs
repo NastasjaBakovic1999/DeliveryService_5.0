@@ -1,13 +1,15 @@
 ﻿using DeliveryServiceApp.Services.Implementation;
 using DeliveryServiceData.UnitOfWork;
+using DeliveryServiceDomain;
 using Moq;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace DeliveryServiceDomain.Tests
+namespace DeliveryServiceAppTests
 {
-    public class AdditionalServiceShipmentTests
+
+	public class AdditionalServiceShipmentTests
     {
         Mock<IUnitOfWork> unitOfWork = Mocks.GetMockUnitOfWork();
 

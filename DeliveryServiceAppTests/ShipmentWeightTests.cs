@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DeliveryServiceDomain.Tests
+namespace DeliveryServiceAppTests
 {
     public class ShipmentWeightTests
     {
@@ -35,7 +35,7 @@ namespace DeliveryServiceDomain.Tests
         }
 
         [Fact]
-        public void TestServicePersonGetAll()
+        public void TestServiceShipmentWeightGetAll()
         {
             var service = new ServiceShipmentWeight(unitOfWork.Object);
             var result = service.GetAll();

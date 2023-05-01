@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DeliveryServiceDomain.Tests
+namespace DeliveryServiceAppTests
 {
     public class ShipmentTests
     {
