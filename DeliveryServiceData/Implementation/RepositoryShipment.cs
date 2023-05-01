@@ -24,7 +24,38 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				context.Shipments.Add(shipment);
+				var parameters = new List<SqlParameter>()
+				{
+					new SqlParameter("@ShipmentCode", shipment.ShipmentCode),
+					new SqlParameter("@ShipmentWeightId", shipment.ShipmentWeightId),
+					new SqlParameter("@ShipmentContent", shipment.ShipmentContent),
+					new SqlParameter("@ContactPersonName", shipment.ContactPersonName),
+					new SqlParameter("@ContactPersonPhone", shipment.ContactPersonPhone),
+					new SqlParameter("@CustomerId", shipment.CustomerId),
+					new SqlParameter("@Price", shipment.Price),
+					new SqlParameter("@Note", shipment.Note),
+					new SqlParameter("@Sending_City", shipment.Sending.City),
+					new SqlParameter("@Sending_Street", shipment.Sending.Street),
+					new SqlParameter("@Sending_PostalCode", shipment.Sending.PostalCode),
+					new SqlParameter("@Receiving_City", shipment.Receiving.City),
+					new SqlParameter("@Receiving_Street", shipment.Receiving.Street),
+					new SqlParameter("@Receiving_PostalCode", shipment.Receiving.PostalCode)
+				};
+				 context.Shipments.FromSqlRaw<Shipment>(@"InsertShipment 
+																@ShipmentCode,
+																@ShipmentWeightId,
+																@ShipmentContent,
+																@ContactPersonName,
+																@ContactPersonPhone,
+																@CustomerId,
+																@Price,
+																@Note,
+																@Sending_City,
+																@Sending_Street,
+																@Sending_PostalCode,
+																@Receiving_City,
+																@Receiving_Street,
+																@Receiving_PostalCode", parameters.ToArray());
 			}
 			catch (Exception ex)
 			{
@@ -37,7 +68,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Shipments.Find(id);
+				return context.Shipments.FromSqlRaw<Shipment>("GetShipmentById").FirstOrDefault();
 			}
 			catch (Exception ex)
 			{
@@ -50,7 +81,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Shipments.ToList();
+				return context.Shipments.FromSqlRaw<Shipment>("GetAllShipments").ToList();
 			}
 			catch (Exception ex)
 			{
@@ -63,7 +94,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Shipments.SingleOrDefault(s => s.ShipmentCode == code);
+				return context.Shipments.FromSqlRaw<Shipment>("GetShipmentByShipmentCode {0}", code).FirstOrDefault();
 			}
 			catch (Exception ex)
 			{
@@ -76,7 +107,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Shipments.Where(s => s.CustomerId == userId).ToList();
+				return context.Shipments.FromSqlRaw<Shipment>("GetShipmentsByCustomerId {0}", userId).AsEnumerable().ToList();
 			}
 			catch (Exception ex)
 			{
@@ -96,7 +127,7 @@ namespace DeliveryServiceData.Implementation
 				context.Entry(existingShipment).State = EntityState.Detached;
 			}
 
-			context.Set<AdditionalServiceShipment>().RemoveRange(existingAdditionalServiceShipments);
+			context.Set<AdditionalServiceShipment>().FromSqlRaw("DeleteShipment {0}", shipment.ShipmentId);
 			context.Entry(shipment).State = EntityState.Deleted;
 		}
 	}

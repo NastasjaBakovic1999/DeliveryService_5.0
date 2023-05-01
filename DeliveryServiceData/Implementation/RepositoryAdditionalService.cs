@@ -22,7 +22,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.AdditionalServices.Find(id);
+				return context.AdditionalServices.FromSqlRaw<AdditionalService>("GetAdditionalServiceById {0}", id).AsEnumerable().FirstOrDefault();
 			}
 			catch (Exception ex)
 			{
@@ -35,7 +35,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.AdditionalServices.ToList();
+				return context.AdditionalServices.FromSqlRaw<AdditionalService>("GetAllAdditionalServices").ToList();
 			}
 			catch (Exception ex)
 			{

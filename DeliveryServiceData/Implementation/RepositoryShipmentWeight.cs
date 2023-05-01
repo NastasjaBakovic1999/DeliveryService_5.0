@@ -22,7 +22,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.ShipmentWeights.Find(id);
+				return context.ShipmentWeights.FromSqlRaw<ShipmentWeight>("GetShipmentWeightById {0}", ids).FirstOrDefault();
 			}
 			catch (Exception ex)
 			{
@@ -35,7 +35,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.ShipmentWeights.ToList();
+				return context.ShipmentWeights.FromSqlRaw<ShipmentWeight>("GetAllShipmentWeights").ToList();
 			}
 			catch (Exception ex)
 			{

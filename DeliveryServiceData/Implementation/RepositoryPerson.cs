@@ -22,7 +22,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Persons.Find(id);
+				return context.Persons.FromSqlRaw("GetPersonById {0}", id).FirstOrDefault();
 			}
 			catch (Exception ex)
 			{
@@ -35,7 +35,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Persons.ToList();
+				return context.Persons.FromSqlRaw("GetAllPersons").ToList();
 			}
 			catch (Exception ex)
 			{

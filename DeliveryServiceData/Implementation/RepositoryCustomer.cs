@@ -1,4 +1,5 @@
 ﻿using DeliveryServiceDomain;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Customers.Find(id);
+				return (Customer)context.Persons.FromSqlRaw("GetCustomerById {0}", id).FirstOrDefault();
 
 			}
 			catch (Exception ex)
@@ -36,7 +37,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Customers.ToList();
+				return context.Customers.FromSqlRaw("GetAllCustomers").ToList();
 			}
 			catch (Exception ex)
 			{
@@ -49,7 +50,12 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				context.Customers.Update(entity);
+				var parameters = new List<SqlParameter>()
+				{
+					new SqlParameter("@Address", entity.Address),
+					new SqlParameter("@PostalCode", entity.PostalCode)
+				};
+				context.Customers.FromSqlRaw("EditCustomer @Address, @PostalCode", parameters).ToList();
 			}
 			catch (Exception ex)
 			{
