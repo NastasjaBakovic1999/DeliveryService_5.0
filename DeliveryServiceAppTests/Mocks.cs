@@ -189,67 +189,6 @@ namespace DeliveryServiceAppTests
             return mockCustomerRepository;
         }
 
-        public static Mock<IRepositoryPerson> GetMockPersonRepository()
-        {
-            var people = new List<Person>()
-            {
-                new Person
-                {
-                    Id = 1,
-                    FirstName = "Pera",
-                    LastName = "Peric",
-                    UserName = "pera",
-                    Email = "pera@gmail.com",
-                    PhoneNumber = "0652233445"
-                },
-                new Person
-                {
-                    Id = 2,
-                    FirstName = "Mika",
-                    LastName = "Mikic",
-                    UserName = "mika",
-                    Email = "mika@gmail.com",
-                    PhoneNumber = "0652233445"
-                },
-                new Person
-                {
-                    Id = 3,
-                    FirstName = "Sima",
-                    LastName = "Simic",
-                    UserName = "sima",
-                    Email = "sima@gmail.com",
-                    PhoneNumber = "0652233445"
-                },
-                new Person
-                {
-                    Id = 4,
-                    FirstName = "Jovana",
-                    LastName = "Jovanovic",
-                    UserName = "jovana",
-                    Email = "jovana@gmail.com",
-                    PhoneNumber = "0652233445"
-                },
-                new Person
-                {
-                    Id = 5,
-                    FirstName = "Ana",
-                    LastName = "Anic",
-                    UserName = "ana",
-                    Email = "ana@gmail.com",
-                    PhoneNumber = "0652233445"
-                }
-            };
-
-            var mockPersonRepository = new Mock<IRepositoryPerson>();
-            mockPersonRepository.Setup(x => x.GetAll()).Returns(people);
-            mockPersonRepository.Setup(x => x.FindByID(It.IsAny<int>(), It.IsAny<int[]>())).Returns((int i, int[] j) =>
-            {
-                return people.SingleOrDefault(c => c.Id == i);
-            });
-
-            return mockPersonRepository;
-        }
-
         public static Mock<IRepositoryShipment> GetMockShipmentRepository()
         {
             Random rand = new Random();
@@ -425,7 +364,6 @@ namespace DeliveryServiceAppTests
         {
             var personUnitOfWork = new Mock<IPersonUnitOfWork>();
             personUnitOfWork.Setup(x => x.Customer).Returns(GetMockCustomerRepository().Object);
-            personUnitOfWork.Setup(x => x.Person).Returns(GetMockPersonRepository().Object);
             personUnitOfWork.Setup(x => x.Commit()).Verifiable();
             return personUnitOfWork;
         }

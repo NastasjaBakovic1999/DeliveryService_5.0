@@ -1,9 +1,11 @@
 ﻿using DeliveryServiceDomain.Configurations;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +15,12 @@ namespace DeliveryServiceDomain
     public class DeliveryServiceContext : DbContext
     {
         private readonly IConfiguration _configuration;
+        private readonly string _connectionString;
+
         public DeliveryServiceContext(IConfiguration configuration)
         {
             _configuration = configuration;
+            _connectionString = _configuration.GetConnectionString("SqlConnection");
         }
 
         public DbSet<Shipment> Shipments { get; set; }
@@ -30,7 +35,7 @@ namespace DeliveryServiceDomain
             optionsBuilder
                .UseLoggerFactory(MyLoggerFactory)
                .EnableSensitiveDataLogging()
-               .UseSqlServer(_configuration.GetConnectionString("SqlConnection"));
+               .UseSqlServer(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -85,5 +90,8 @@ namespace DeliveryServiceDomain
                 new ShipmentWeight { ShipmentWeightId = 5, ShipmentWeightDescpription = "Over 10 to 20kg", ShipmentWeightPrice = 700}
             );
         }
+
+        public IDbConnection CreateConnection()
+             => new SqlConnection(_connectionString);
     }
 }

@@ -15,21 +15,6 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
             migrationBuilder.DropTable(
                 name: "Statuses");
 
-            var checkAdditionalServiceShipmentExistsProcedure = 
-                @"CREATE PROCEDURE [dbo].[CheckAdditionalServiceShipmentExists]
-                AS
-                BEGIN
-                    SET @Exists = 0;
-
-                    IF EXISTS (
-                        SELECT 1
-                        FROM dbo.AdditionalServiceShipments
-                        WHERE ShipmentId = @ShipmentId AND AdditionalServiceId = @AdditionalServiceId
-                    )
-                    BEGIN
-                        SET @Exists = 1;
-                    END
-                END";
             var deleteShipmentProcedure =
                 @"CREATE PROCEDURE [dbo].[DeleteShipment]
                 AS
@@ -133,7 +118,6 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
             migrationBuilder.Sql(insertShipmentProcedure);
             migrationBuilder.Sql(deleteShipmentProcedure);
             migrationBuilder.Sql(getShipmentByIdProcedure);
-            migrationBuilder.Sql(checkAdditionalServiceShipmentExistsProcedure);
             migrationBuilder.Sql(getShipmentWeightByIdProcedure);
             migrationBuilder.Sql(getShipmentByCustomerIdProcedure);
             migrationBuilder.Sql(getShipmentByShipmentCode);

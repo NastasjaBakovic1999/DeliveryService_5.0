@@ -11,16 +11,14 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DeliveryServiceContext _deliveryServiceContext;
-        private readonly DapperContext _dapperContext;
 
-        public UnitOfWork(DeliveryServiceContext deliveryServiceContext, DapperContext dapperContext)
+        public UnitOfWork(DeliveryServiceContext deliveryServiceContext)
         {
             _deliveryServiceContext = deliveryServiceContext;
-            _dapperContext = dapperContext;
-            Shipment = new RepositoryShipment(dapperContext);
-            AdditionalService = new RepositoryAdditionalService(dapperContext);
-            AdditionalServiceShipment = new RepositoryAdditionalServiceShipment(dapperContext);
-            ShipmentWeight = new RepositoryShipmentWeight(dapperContext);
+            Shipment = new RepositoryShipment(deliveryServiceContext);
+            AdditionalService = new RepositoryAdditionalService(deliveryServiceContext);
+            AdditionalServiceShipment = new RepositoryAdditionalServiceShipment(deliveryServiceContext);
+            ShipmentWeight = new RepositoryShipmentWeight(deliveryServiceContext);
         }
 
         public IRepositoryAdditionalService AdditionalService { get; set; }

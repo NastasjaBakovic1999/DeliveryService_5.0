@@ -11,18 +11,14 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
     public class PersonUnitOfWork : IPersonUnitOfWork
     {
         private readonly PersonContext _personContext;
-        private readonly DapperContext _dapperContext;
 
-        public PersonUnitOfWork(PersonContext personContext, DapperContext dapperContext)
+        public PersonUnitOfWork(PersonContext personContext)
         {
             _personContext = personContext;
-            _dapperContext = dapperContext;
-            Customer = new RepositoryCustomer(dapperContext);
-            Person = new RepositoryPerson(dapperContext);
+            Customer = new RepositoryCustomer(personContext);
         }
 
         public IRepositoryCustomer Customer { get; set; }
-        public IRepositoryPerson Person { get; set; }
 
         public void Commit()
         {

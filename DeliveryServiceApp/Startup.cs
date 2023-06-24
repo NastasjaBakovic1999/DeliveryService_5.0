@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -48,7 +49,6 @@ namespace DeliveryServiceApp
             services.AddScoped<IPersonUnitOfWork, PersonUnitOfWork>();
             services.AddDbContext<DeliveryServiceContext>();
             services.AddDbContext<PersonContext>();
-            services.AddSingleton<DapperContext>();
             services.AddScoped<IPasswordHasher<Person>, PasswordHasher<Person>>();
 
             services.AddIdentity<Person, IdentityRole<int>>().AddEntityFrameworkStores<PersonContext>();

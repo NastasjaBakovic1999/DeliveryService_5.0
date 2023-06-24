@@ -1,11 +1,13 @@
 ﻿using DeliveryServiceDomain.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +17,12 @@ namespace DeliveryServiceDomain
     public class PersonContext : IdentityDbContext<Person, IdentityRole<int>, int>
     {
         private readonly IConfiguration _configuration;
+        private readonly string _connectionString;
+
         public PersonContext(IConfiguration configuration)
         {
             _configuration = configuration;
+            _connectionString = _configuration.GetConnectionString("SqlConnection");
         }
 
         public DbSet<Person> Persons { get; set; }
@@ -26,7 +31,7 @@ namespace DeliveryServiceDomain
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SqlConnection"));
+            optionsBuilder.UseSqlServer(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -73,6 +78,9 @@ namespace DeliveryServiceDomain
                 new IdentityUserRole<int> {RoleId = 1, UserId = 2 }
                 );
         }
+
+        public IDbConnection CreateConnection()
+           => new SqlConnection(_connectionString);
     }
 
 }

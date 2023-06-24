@@ -9,7 +9,6 @@ namespace DeliveryServiceData.UnitOfWork
     public interface IPersonUnitOfWork : IDisposable
     {
         public IRepositoryCustomer Customer { get; set; }
-        public IRepositoryPerson Person { get; set; }
         void Commit();
     }
 }

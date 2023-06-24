@@ -14,9 +14,9 @@ namespace DeliveryServiceData.Implementation
 {
     public class RepositoryCustomer : IRepositoryCustomer
     {
-		private readonly DapperContext context;
+		private readonly PersonContext context;
 
-		public RepositoryCustomer(DapperContext context)
+		public RepositoryCustomer(PersonContext context)
 		{
 			this.context = context;
 		}

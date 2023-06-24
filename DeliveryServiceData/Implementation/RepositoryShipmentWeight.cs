@@ -13,9 +13,9 @@ namespace DeliveryServiceData.Implementation
 {
 	internal class RepositoryShipmentWeight : IRepositoryShipmentWeight
 	{
-		private readonly DapperContext context;
+		private readonly DeliveryServiceContext context;
 
-		public RepositoryShipmentWeight(DapperContext context)
+		public RepositoryShipmentWeight(DeliveryServiceContext context)
 		{
 			this.context = context;
 		}

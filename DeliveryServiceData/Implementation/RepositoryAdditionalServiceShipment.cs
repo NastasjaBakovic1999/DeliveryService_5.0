@@ -13,9 +13,9 @@ namespace DeliveryServiceData.Implementation
 {
     public class RepositoryAdditionalServiceShipment : IRepositoryAdditionalServiceShipment
     {
-		private readonly DapperContext context;
+		private readonly DeliveryServiceContext context;
 
-		public RepositoryAdditionalServiceShipment(DapperContext context)
+		public RepositoryAdditionalServiceShipment(DeliveryServiceContext context)
 		{
 			this.context = context;
 		}
