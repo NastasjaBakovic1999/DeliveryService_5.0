@@ -1,5 +1,6 @@
 ﻿using DeliveryServiceDomain.Configurations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,12 @@ namespace DeliveryServiceDomain
 {
     public class DeliveryServiceContext : DbContext
     {
+        private readonly IConfiguration _configuration;
+        public DeliveryServiceContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public DbSet<Shipment> Shipments { get; set; }
         public DbSet<AdditionalService> AdditionalServices { get; set; }
         public DbSet<AdditionalServiceShipment> AdditionalServiceShipments { get; set; }
@@ -23,7 +30,7 @@ namespace DeliveryServiceDomain
             optionsBuilder
                .UseLoggerFactory(MyLoggerFactory)
                .EnableSensitiveDataLogging()
-               .UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=Delivery_Service_Database2;");
+               .UseSqlServer(_configuration.GetConnectionString("SqlConnection"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

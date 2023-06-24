@@ -1,8 +1,10 @@
-﻿using DeliveryServiceDomain;
+﻿using Dapper;
+using DeliveryServiceDomain;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -12,9 +14,9 @@ namespace DeliveryServiceData.Implementation
 {
     public class RepositoryCustomer : IRepositoryCustomer
     {
-		private readonly PersonContext context;
+		private readonly DapperContext context;
 
-		public RepositoryCustomer(PersonContext context)
+		public RepositoryCustomer(DapperContext context)
 		{
 			this.context = context;
 		}
@@ -23,9 +25,16 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return (Customer)context.Persons.FromSqlRaw("GetCustomerById {0}", id).FirstOrDefault();
+                using (var connection = context.CreateConnection())
+                {
+                    var procedure = "[dbo].[GetCustomerById]";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@CustomerId", id);
+                    var customer = connection.QuerySingleOrDefault<Customer>(procedure, parameters, commandType: CommandType.StoredProcedure);
 
-			}
+                    return customer;
+                }
+            }
 			catch (Exception ex)
 			{
 				throw new Exception($"Error loading user! {Environment.NewLine}" +
@@ -37,8 +46,14 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Customers.FromSqlRaw("GetAllCustomers").ToList();
-			}
+                using (var connection = context.CreateConnection())
+                {
+                    var procedure = "[dbo].[GetAllCustomers]";
+                    var customers = connection.Query<Customer>(procedure, commandType: CommandType.StoredProcedure);
+
+                    return customers.ToList();
+                }
+            }
 			catch (Exception ex)
 			{
 				throw new Exception($"Error loading all users! {Environment.NewLine}" +
@@ -50,13 +65,16 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				var parameters = new List<SqlParameter>()
-				{
-					new SqlParameter("@Address", entity.Address),
-					new SqlParameter("@PostalCode", entity.PostalCode)
-				};
-				context.Customers.FromSqlRaw("EditCustomer @Address, @PostalCode", parameters).ToList();
-			}
+                using (var connection = context.CreateConnection())
+                {
+                    var procedure = "[dbo].[EditCustomer]";
+                    var parameters = new DynamicParameters();
+					parameters.Add("@Address", entity.Address, DbType.String);
+					parameters.Add("@PostalCode", entity.PostalCode, DbType.String);
+					parameters.Add("@CustomerId", entity.Id, DbType.Int32);
+                    var customers = connection.Execute(procedure, parameters, commandType: CommandType.StoredProcedure);
+                }
+            }
 			catch (Exception ex)
 			{
 				throw new Exception($"Error changing user data! {Environment.NewLine}" +

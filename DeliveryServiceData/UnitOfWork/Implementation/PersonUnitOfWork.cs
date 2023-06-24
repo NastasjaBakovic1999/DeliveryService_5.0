@@ -10,13 +10,15 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
 {
     public class PersonUnitOfWork : IPersonUnitOfWork
     {
-        private readonly PersonContext context;
+        private readonly PersonContext _personContext;
+        private readonly DapperContext _dapperContext;
 
-        public PersonUnitOfWork(PersonContext context)
+        public PersonUnitOfWork(PersonContext personContext, DapperContext dapperContext)
         {
-            this.context = context;
-            Customer = new RepositoryCustomer(context);
-            Person = new RepositoryPerson(context);
+            _personContext = personContext;
+            _dapperContext = dapperContext;
+            Customer = new RepositoryCustomer(dapperContext);
+            Person = new RepositoryPerson(dapperContext);
         }
 
         public IRepositoryCustomer Customer { get; set; }
@@ -24,12 +26,12 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
 
         public void Commit()
         {
-            context.SaveChanges();
+            _personContext.SaveChanges();
         }
 
         public void Dispose()
         {
-            context.Dispose();
+            _personContext.Dispose();
         }
     }
 }

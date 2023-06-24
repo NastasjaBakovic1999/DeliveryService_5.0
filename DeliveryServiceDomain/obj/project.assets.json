@@ -2517,29 +2517,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Luka\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages": {},
-    "C:\\Program Files\\DevExpress 22.1\\Components\\Offline Packages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Nastasja\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj",
+      "projectUniqueName": "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj",
       "projectName": "DeliveryServiceDomain",
-      "projectPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj",
-      "packagesPath": "C:\\Users\\Luka\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Luka\\Desktop\\DeliveryService_5.0\\DeliveryService_5.0\\DeliveryServiceDomain\\obj\\",
+      "projectPath": "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj",
+      "packagesPath": "C:\\Users\\Nastasja\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceDomain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
-        "C:\\Program Files\\DevExpress 22.1\\Components\\Offline Packages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Luka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nastasja\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 22.1.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2548,9 +2543,7 @@
       "sources": {
         "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\DevExpress 22.1\\Components\\System\\Components\\Packages": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.devexpress.com/wwNgbYGFegIHupeE8h3ZeMtdjogd6LqEPOqXiS74dzJaRd1rxB/api": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
@@ -2615,7 +2608,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   }

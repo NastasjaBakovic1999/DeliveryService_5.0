@@ -10,15 +10,17 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DeliveryServiceContext context;
+        private readonly DeliveryServiceContext _deliveryServiceContext;
+        private readonly DapperContext _dapperContext;
 
-        public UnitOfWork(DeliveryServiceContext context)
+        public UnitOfWork(DeliveryServiceContext deliveryServiceContext, DapperContext dapperContext)
         {
-            this.context = context;
-            Shipment = new RepositoryShipment(context);
-            AdditionalService = new RepositoryAdditionalService(context);
-            AdditionalServiceShipment = new RepositoryAdditionalServiceShipment(context);
-            ShipmentWeight = new RepositoryShipmentWeight(context);
+            _deliveryServiceContext = deliveryServiceContext;
+            _dapperContext = dapperContext;
+            Shipment = new RepositoryShipment(dapperContext);
+            AdditionalService = new RepositoryAdditionalService(dapperContext);
+            AdditionalServiceShipment = new RepositoryAdditionalServiceShipment(dapperContext);
+            ShipmentWeight = new RepositoryShipmentWeight(dapperContext);
         }
 
         public IRepositoryAdditionalService AdditionalService { get; set; }
@@ -28,12 +30,12 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
 
         public void Commit()
         {
-            context.SaveChanges();
+            _deliveryServiceContext.SaveChanges();
         }
 
         public void Dispose()
         {
-            context.Dispose();
+            _deliveryServiceContext.Dispose();
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using DeliveryServiceDomain;
+﻿using Dapper;
+using DeliveryServiceDomain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -11,9 +13,9 @@ namespace DeliveryServiceData.Implementation
 {
     public class RepositoryAdditionalServiceShipment : IRepositoryAdditionalServiceShipment
     {
-		private readonly DeliveryServiceContext context;
+		private readonly DapperContext context;
 
-		public RepositoryAdditionalServiceShipment(DeliveryServiceContext context)
+		public RepositoryAdditionalServiceShipment(DapperContext context)
 		{
 			this.context = context;
 		}
@@ -22,7 +24,7 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				context.AdditionalServiceShipments.Add(additionalServiceShipment);
+				// 
 			}
 			catch (Exception ex)
 			{
@@ -35,8 +37,17 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.AdditionalServiceShipments.Find(id, ids[0]);
-			}
+                using (var connection = context.CreateConnection())
+                {
+                    var procedure = "[dbo].[GetAdditionalServiceShipmentByIDs]";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@AdditionalServiceId", id);
+                    parameters.Add("@ShipmentId", ids[0]);
+                    var additionalServiceShipment = connection.QuerySingleOrDefault<AdditionalServiceShipment>(procedure, parameters, commandType: CommandType.StoredProcedure);
+
+                    return additionalServiceShipment;
+                }
+            }
 			catch (Exception ex)
 			{
 				throw new Exception($"Error loading shipment and its additional service! {Environment.NewLine}" +
@@ -48,8 +59,14 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.AdditionalServiceShipments.ToList();
-			}
+                using (var connection = context.CreateConnection())
+                {
+                    var procedure = "[dbo].[GetAllAdditionalServiceShipments]";
+                    var additionalServiceShipments = connection.Query<AdditionalServiceShipment>(procedure, commandType: CommandType.StoredProcedure);
+
+                    return additionalServiceShipments.ToList();
+                }
+            }
 			catch (Exception ex)
 			{
 				throw new Exception($"Error returning all shipments and their additional services! {Environment.NewLine}" +

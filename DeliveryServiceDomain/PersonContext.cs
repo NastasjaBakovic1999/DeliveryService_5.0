@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,19 @@ namespace DeliveryServiceDomain
 {
     public class PersonContext : IdentityDbContext<Person, IdentityRole<int>, int>
     {
+        private readonly IConfiguration _configuration;
+        public PersonContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public DbSet<Person> Persons { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=Delivery_Service_Database2;");
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SqlConnection"));
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

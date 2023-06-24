@@ -10,13 +10,6 @@ namespace DeliveryServiceDomain.Migrations
         {
 			var editCustomerProcedure =
 				@"CREATE PROCEDURE [dbo].[EditCustomer]
-                    @CustomerId INT,
-                    @FirstName NVARCHAR(50),
-                    @LastName NVARCHAR(50),
-                    @Email NVARCHAR(50),
-                    @PhoneNumber NVARCHAR(50),
-                    @Address NVARCHAR(100),
-                    @PostalCode NVARCHAR(20)
                 AS
                 BEGIN
                     UPDATE Customer
@@ -28,7 +21,6 @@ namespace DeliveryServiceDomain.Migrations
 
 			var getCustomerByIdProcedure =
 				@"CREATE PROCEDURE [dbo].[GetCustomerById]
-                    @CustomerId INT
                 AS
                 BEGIN
                     SELECT *

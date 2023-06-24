@@ -1,7 +1,9 @@
-﻿using DeliveryServiceDomain;
+﻿using Dapper;
+using DeliveryServiceDomain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -11,9 +13,9 @@ namespace DeliveryServiceData.Implementation
 {
 	internal class RepositoryShipmentWeight : IRepositoryShipmentWeight
 	{
-		private readonly DeliveryServiceContext context;
+		private readonly DapperContext context;
 
-		public RepositoryShipmentWeight(DeliveryServiceContext context)
+		public RepositoryShipmentWeight(DapperContext context)
 		{
 			this.context = context;
 		}
@@ -22,8 +24,16 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.ShipmentWeights.FromSqlRaw<ShipmentWeight>("GetShipmentWeightById {0}", ids).FirstOrDefault();
-			}
+                using (var connection = context.CreateConnection())
+                {
+                    var procedure = "[dbo].[GetShipmentWeightById]";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@ShipmentWeightId", id);
+                    var shipmentWeight = connection.QuerySingleOrDefault<ShipmentWeight>(procedure, parameters, commandType: CommandType.StoredProcedure);
+
+                    return shipmentWeight;
+                }
+            }
 			catch (Exception ex)
 			{
 				throw new Exception($"Error loading shipment weight! {Environment.NewLine}" +
@@ -35,8 +45,14 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.ShipmentWeights.FromSqlRaw<ShipmentWeight>("GetAllShipmentWeights").ToList();
-			}
+                using (var connection = context.CreateConnection())
+                {
+                    var procedure = "[dbo].[GetShipmentWeightById]";
+                    var shipmentWeights = connection.Query<ShipmentWeight>(procedure, commandType: CommandType.StoredProcedure);
+
+                    return shipmentWeights.ToList();
+                }
+            }
 			catch (Exception ex)
 			{
 				throw new Exception($"Error loading all shipment weights! {Environment.NewLine}" +

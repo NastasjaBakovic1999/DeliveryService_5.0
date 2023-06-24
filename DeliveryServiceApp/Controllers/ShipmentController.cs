@@ -197,13 +197,7 @@ namespace DeliveryServiceApp.Controllers
 		{
             try
             {
-				var shipment = serviceShipment.FindByID(id);
-				if (shipment == null)
-				{
-					return RedirectToAction("Error", "Home", new { Message = "An error occurred while removing the shipment!" });
-				}
-
-				serviceShipment.RemoveShipment(shipment);
+				serviceShipment.RemoveShipment(id);
 
 				return RedirectToAction("CustomerShipments");
 			}

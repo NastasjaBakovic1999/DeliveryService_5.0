@@ -1,7 +1,9 @@
-﻿using DeliveryServiceDomain;
+﻿using Dapper;
+using DeliveryServiceDomain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -11,9 +13,9 @@ namespace DeliveryServiceData.Implementation
 {
     public class RepositoryPerson : IRepositoryPerson
     {
-		private readonly PersonContext context;
+		private readonly DapperContext context;
 
-		public RepositoryPerson(PersonContext context)
+		public RepositoryPerson(DapperContext context)
 		{
 			this.context = context;
 		}
@@ -22,8 +24,16 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Persons.FromSqlRaw("GetPersonById {0}", id).FirstOrDefault();
-			}
+                using (var connection = context.CreateConnection())
+                {
+                    var procedure = "[dbo].[GetPersonById]";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@PersonId", id);
+                    var person = connection.QuerySingleOrDefault<Person>(procedure, parameters, commandType: CommandType.StoredProcedure);
+
+                    return person;
+                }
+            }
 			catch (Exception ex)
 			{
 				throw new Exception($"Error loading person! {Environment.NewLine}" +
@@ -35,8 +45,9 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				return context.Persons.FromSqlRaw("GetAllPersons").ToList();
-			}
+               //
+			   return new List<Person> { new Person() };
+            }
 			catch (Exception ex)
 			{
 				throw new Exception($"Error loading all persons! {Environment.NewLine}" +

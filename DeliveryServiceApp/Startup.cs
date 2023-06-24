@@ -48,6 +48,7 @@ namespace DeliveryServiceApp
             services.AddScoped<IPersonUnitOfWork, PersonUnitOfWork>();
             services.AddDbContext<DeliveryServiceContext>();
             services.AddDbContext<PersonContext>();
+            services.AddSingleton<DapperContext>();
             services.AddScoped<IPasswordHasher<Person>, PasswordHasher<Person>>();
 
             services.AddIdentity<Person, IdentityRole<int>>().AddEntityFrameworkStores<PersonContext>();

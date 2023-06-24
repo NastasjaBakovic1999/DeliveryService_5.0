@@ -96,9 +96,9 @@ namespace DeliveryServiceApp.Services.Implementation
 			return unitOfWork.Shipment.GetAllOfSpecifiedUser(userId);
 		}
 
-		public void RemoveShipment(Shipment shipment)
+		public void RemoveShipment(int shipmentId)
 		{
-			unitOfWork.Shipment.RemoveShipment(shipment);
+			unitOfWork.Shipment.RemoveShipment(shipmentId);
             unitOfWork.Commit();
 		}
 	}
