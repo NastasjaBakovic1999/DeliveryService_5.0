@@ -24,8 +24,15 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-				// 
-			}
+                using (var connection = context.CreateConnection())
+                {
+                    var procedure = "[dbo].[InsertAdditionalServiceShipment]";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@AdditionalServiceId", additionalServiceShipment.AdditionalServiceId);
+                    parameters.Add("@ShipmentId", additionalServiceShipment.ShipmentId);
+                    connection.Execute(procedure, parameters, commandType: CommandType.StoredProcedure);
+                }
+            }
 			catch (Exception ex)
 			{
 				throw new Exception($"Error saving shipment and its additional services! {Environment.NewLine}" +

@@ -85,8 +85,13 @@ namespace DeliveryServiceData.Implementation
 		{
 			try
 			{
-                //
-				return new List<Shipment> { new Shipment() };
+                using (var connection = context.CreateConnection())
+                {
+                    var procedure = "[dbo].[GetAllShipments]";
+                    var shipments = connection.Query<Shipment>(procedure, commandType: CommandType.StoredProcedure);
+
+                    return shipments.ToList();
+                }
             }
 			catch (Exception ex)
 			{
