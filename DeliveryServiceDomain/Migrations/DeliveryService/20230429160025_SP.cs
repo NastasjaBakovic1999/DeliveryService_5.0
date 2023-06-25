@@ -16,7 +16,8 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                 name: "Statuses");
 
             var deleteShipmentProcedure =
-                @"CREATE PROCEDURE [dbo].[DeleteShipment]
+                 @"CREATE PROCEDURE [dbo].[DeleteShipment]
+                    @Id INT
                 AS
                 BEGIN
                     SET NOCOUNT ON;
@@ -25,6 +26,7 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                 END";
             var getAdditionalServiceByIdProcedure =
                 @"CREATE PROCEDURE [dbo].[GetAdditionalServiceById]
+                    @AdditionalServiceId INT
                 AS
                 BEGIN
                     SELECT AdditionalServiceId, AdditionalServiceName, AdditionalServicePrice
@@ -33,6 +35,8 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                 END";
             var getAdditionalServiceShipmentByIDsProcedure =
                 @"CREATE PROCEDURE [dbo].[GetAdditionalServiceShipmentByIDs]
+                    @ShipmentId INT,
+                    @AdditionalServiceId INT
                 AS
                 BEGIN
                     SELECT *
@@ -41,6 +45,7 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                 END";
             var getShipmentByIdProcedure =
                 @"CREATE PROCEDURE [dbo].[GetShipmentById]
+                    @ShipmentId INT
                 AS
                 BEGIN
                     SELECT *
@@ -49,6 +54,7 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                 END";
             var getShipmentByShipmentCode =
                 @"CREATE PROCEDURE [dbo].[GetShipmentByShipmentCode]
+                    @ShipmentCode NVARCHAR(50)
                 AS
                 BEGIN
                     SELECT *
@@ -57,6 +63,7 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                 END";
             var getShipmentByCustomerIdProcedure =
                 @"CREATE PROCEDURE [dbo].[GetShipmentsByCustomerId]
+                    @CustomerId INT
                 AS
                 BEGIN
                     SELECT *
@@ -65,6 +72,7 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                 END";
             var getShipmentWeightByIdProcedure =
                 @"CREATE PROCEDURE [dbo].[GetShipmentWeightById]
+                    @ShipmentWeightId INT
                 AS
                 BEGIN
                     SELECT *
@@ -73,6 +81,21 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                 END";
             var insertShipmentProcedure =
                 @"CREATE PROCEDURE [dbo].[InsertShipment]
+                    @ShipmentCode VARCHAR(50),
+                    @ShipmentWeightId INT,
+                    @ShipmentContent NVARCHAR(500),
+                    @ContactPersonName NVARCHAR(100),
+                    @ContactPersonPhone VARCHAR(20),
+                    @CustomerId INT,
+                    @Price DECIMAL(18,2),
+                    @Note NVARCHAR(500),
+                    @Sending_City NVARCHAR(100),
+                    @Sending_Street NVARCHAR(100),
+                    @Sending_PostalCode VARCHAR(20),
+                    @Receiving_City NVARCHAR(100),
+                    @Receiving_Street NVARCHAR(100),
+                    @Receiving_PostalCode VARCHAR(20),
+	                @ShipmentId INT
                 AS
                 BEGIN
                     SET NOCOUNT ON;
@@ -123,7 +146,8 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
             migrationBuilder.Sql(getShipmentByShipmentCode);
             migrationBuilder.Sql(getAdditionalServiceShipmentByIDsProcedure);
             migrationBuilder.Sql(getAdditionalServiceByIdProcedure);
-		}
+        
+        }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {

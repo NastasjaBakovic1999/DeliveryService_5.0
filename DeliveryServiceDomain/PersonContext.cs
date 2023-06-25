@@ -19,6 +19,10 @@ namespace DeliveryServiceDomain
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
+        public PersonContext()
+        {
+                
+        }
         public PersonContext(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -31,7 +35,7 @@ namespace DeliveryServiceDomain
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB; Database=Delivery_Service_Database2;");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

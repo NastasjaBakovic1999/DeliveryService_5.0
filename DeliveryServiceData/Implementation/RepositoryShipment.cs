@@ -2,6 +2,7 @@
 using DeliveryServiceDomain;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,6 +44,10 @@ namespace DeliveryServiceData.Implementation
                     parameters.Add("@Receiving_City", shipment.Receiving.City);
                     parameters.Add("@Receiving_Street", shipment.Receiving.Street);
                     parameters.Add("@Receiving_PostalCode", shipment.Receiving.PostalCode);
+
+                    var additionalServiceIds = shipment.AdditionalServices.Select(service => service.AdditionalServiceId);
+                    var additionalServiceIdsJson = JsonConvert.SerializeObject(additionalServiceIds);
+                    parameters.Add("@AdditionalServiceIds", additionalServiceIdsJson);
 
                     var person = connection.Execute(procedure, parameters, commandType: CommandType.StoredProcedure);
 

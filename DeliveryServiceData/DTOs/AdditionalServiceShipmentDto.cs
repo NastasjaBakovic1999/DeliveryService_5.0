@@ -11,5 +11,6 @@ namespace DeliveryServiceData.DTOs
         public int AdditionalServiceId { get; set; }
         public int ShipmentId { get; set; }
         public string AdditionalServiceName { get; set; }
+        public string ShipmentCode { get; set; }
     }
 }

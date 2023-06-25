@@ -8,8 +8,8 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var getAllAdditionalServicesProcedure = 
-                @"CREATE PROCEDURE GetAllAdditionalServices
+            var getAllAdditionalServicesProcedure =
+                 @"CREATE PROCEDURE GetAllAdditionalServices
                 AS
                 BEGIN
                     SET NOCOUNT ON;
@@ -17,7 +17,7 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                     FROM AdditionalService;
                 END";
             var getAllAdditionalServicesShipmentProcedure =
-				@"CREATE PROCEDURE GetAllAdditionalServiceShipments
+                @"CREATE PROCEDURE GetAllAdditionalServiceShipments
                 AS
                 BEGIN
                     SET NOCOUNT ON;
@@ -26,7 +26,7 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
                 END
                 GO";
             var getAllShipmentWeightsProcedure =
-				@"CREATE PROCEDURE GetAllShipmentWeights
+                @"CREATE PROCEDURE GetAllShipmentWeights
                 AS
                 BEGIN
                     SELECT * FROM ShipmentWeight
@@ -35,8 +35,7 @@ namespace DeliveryServiceDomain.Migrations.DeliveryService
             migrationBuilder.Sql(getAllAdditionalServicesProcedure);
             migrationBuilder.Sql(getAllAdditionalServicesShipmentProcedure);
             migrationBuilder.Sql(getAllShipmentWeightsProcedure);
-		}
-
+        }
         protected override void Down(MigrationBuilder migrationBuilder)
         {
 

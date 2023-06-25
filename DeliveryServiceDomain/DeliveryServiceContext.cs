@@ -17,6 +17,10 @@ namespace DeliveryServiceDomain
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
+        public DeliveryServiceContext()
+        {
+            
+        }
         public DeliveryServiceContext(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -35,7 +39,7 @@ namespace DeliveryServiceDomain
             optionsBuilder
                .UseLoggerFactory(MyLoggerFactory)
                .EnableSensitiveDataLogging()
-               .UseSqlServer(_connectionString);
+               .UseSqlServer("Server=(localdb)\\MSSQLLocalDB; Database=Delivery_Service_Database2;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

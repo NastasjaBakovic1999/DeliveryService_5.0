@@ -8,8 +8,15 @@ namespace DeliveryServiceDomain.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-			var editCustomerProcedure =
-				@"CREATE PROCEDURE [dbo].[EditCustomer]
+            var editCustomerProcedure =
+                    @"CREATE PROCEDURE [dbo].[EditCustomer]
+                    @CustomerId INT,
+                    @FirstName NVARCHAR(50),
+                    @LastName NVARCHAR(50),
+                    @Email NVARCHAR(50),
+                    @PhoneNumber NVARCHAR(50),
+                    @Address NVARCHAR(100),
+                    @PostalCode NVARCHAR(20)
                 AS
                 BEGIN
                     UPDATE Customer
@@ -19,8 +26,9 @@ namespace DeliveryServiceDomain.Migrations
                     WHERE Id = @CustomerId
                 END";
 
-			var getCustomerByIdProcedure =
-				@"CREATE PROCEDURE [dbo].[GetCustomerById]
+            var getCustomerByIdProcedure =
+                @"CREATE PROCEDURE [dbo].[GetCustomerById]
+                    @CustomerId INT
                 AS
                 BEGIN
                     SELECT *
@@ -30,7 +38,7 @@ namespace DeliveryServiceDomain.Migrations
 
             migrationBuilder.Sql(editCustomerProcedure);
             migrationBuilder.Sql(getCustomerByIdProcedure);
-		}
+        }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {

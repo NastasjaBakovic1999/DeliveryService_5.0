@@ -9,14 +9,14 @@ namespace DeliveryServiceDomain.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             var getAllCustomersProcedure =
-                @"CREATE PROCEDURE GetAllCustomers
+          @"CREATE PROCEDURE GetAllCustomers
                 AS
                 BEGIN
                     SELECT * FROM Customer
                 END
                 ";
             migrationBuilder.Sql(getAllCustomersProcedure);
-		}
+        }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
