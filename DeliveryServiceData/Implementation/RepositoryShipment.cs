@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using DeliveryServiceData.DTOs;
 using DeliveryServiceDomain;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +45,7 @@ namespace DeliveryServiceData.Implementation
                     parameters.Add("@Receiving_City", shipment.Receiving.City);
                     parameters.Add("@Receiving_Street", shipment.Receiving.Street);
                     parameters.Add("@Receiving_PostalCode", shipment.Receiving.PostalCode);
+                    parameters.Add("@ShipmentId", shipment.ShipmentId, DbType.Int32, ParameterDirection.Output);
 
                     var additionalServiceIds = shipment.AdditionalServices.Select(service => service.AdditionalServiceId);
                     var additionalServiceIdsJson = JsonConvert.SerializeObject(additionalServiceIds);
@@ -130,9 +132,41 @@ namespace DeliveryServiceData.Implementation
                     var procedure = "[dbo].[GetShipmentsByCustomerId]";
                     var parameters = new DynamicParameters();
                     parameters.Add("@CustomerId", userId);
-                    var shipment = connection.Query<Shipment>(procedure, parameters, commandType: CommandType.StoredProcedure);
+                    var shipmentsDto = connection.Query<ShipmentDto>(procedure, parameters, commandType: CommandType.StoredProcedure);
 
-                    return shipment.ToList();
+                    var shipments = new List<Shipment>();
+
+                    if(shipments != null)
+                    {
+                        foreach(var shipment in shipmentsDto)
+                        {
+                            shipments.Add(new Shipment
+                            {
+                                ShipmentId = shipment.ShipmentId,
+                                ShipmentCode = shipment.ShipmentCode,
+                                ShipmentWeightId = shipment.ShipmentWeightId,
+                                ShipmentContent = shipment.ShipmentContent,
+                                Sending = new Address
+                                {
+                                    City = shipment.Sending_City,
+                                    Street = shipment.Sending_Street,
+                                    PostalCode = shipment.Sending_PostalCode,
+                                },
+                                Receiving = new Address
+                                {
+                                    City = shipment.Receiving_City,
+                                    Street = shipment.Receiving_Street,
+                                    PostalCode = shipment.Receiving_PostalCode
+                                },
+                                ContactPersonName = shipment.ContactPersonName,
+                                ContactPersonPhone = shipment.ContactPersonPhone,
+                                CustomerId = shipment.CustomerId,
+                                Price = shipment.Price,
+                                Note = shipment.Note
+                            });
+                        }
+                    }
+                    return shipments.ToList();
                 }
             }
 			catch (Exception ex)
@@ -148,7 +182,7 @@ namespace DeliveryServiceData.Implementation
             {
                 var procedure = "[dbo].[DeleteShipment]";
                 var parameters = new DynamicParameters();
-                parameters.Add("@ShipmentId", shipmentId);
+                parameters.Add("@Id", shipmentId);
                 connection.Execute(procedure, parameters, commandType: CommandType.StoredProcedure);
             }
         }

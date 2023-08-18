@@ -19,6 +19,7 @@ namespace DeliveryServiceData.DTOs
         public string Receiving_Street { get; set; }
         public string Receiving_PostalCode { get; set; }
         public string ContactPersonPhone { get; set; }
+        public string ContactPersonName { get; set; }
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         public double Price { get; set; }

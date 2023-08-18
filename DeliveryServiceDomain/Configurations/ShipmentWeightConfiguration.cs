@@ -18,7 +18,7 @@ namespace DeliveryServiceDomain.Configurations
                 .HasColumnName("ShipmentWeightId")
                 .IsRequired();
 
-            entity.Property(e => e.ShipmentWeightDescpription)
+            entity.Property(e => e.ShipmentWeightDescription)
                 .HasColumnName("Desc")
                 .IsRequired()
                 .HasColumnType("varchar")

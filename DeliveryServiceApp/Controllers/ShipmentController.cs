@@ -44,7 +44,7 @@ namespace DeliveryServiceApp.Controllers
                 List<SelectListItem> selectAdditionalServicesList = additionalServicesList.Select(s => new SelectListItem { Text = s.AdditionalServiceName + " - " + s.AdditionalServicePrice + " RSD", Value = s.AdditionalServiceId.ToString() }).ToList();
 
                 List<ShipmentWeight> shipmentWeightList = serviceShipmentWeight.GetAll();
-                List<SelectListItem> selectShipmentWeightList = shipmentWeightList.Select(s => new SelectListItem { Text = s.ShipmentWeightDescpription, Value = s.ShipmentWeightId.ToString() }).ToList();
+                List<SelectListItem> selectShipmentWeightList = shipmentWeightList.Select(s => new SelectListItem { Text = s.ShipmentWeightDescription, Value = s.ShipmentWeightId.ToString() }).ToList();
 
                 CreateShipmentViewModel model = new CreateShipmentViewModel
                 {
@@ -72,7 +72,7 @@ namespace DeliveryServiceApp.Controllers
                     List<SelectListItem> selectAdditionalServicesList = additionalServicesList.Select(s => new SelectListItem { Text = s.AdditionalServiceName + " - " + s.AdditionalServicePrice + " RSD", Value = s.AdditionalServiceId.ToString() }).ToList();
 
                     List<ShipmentWeight> shipmentWeightList = serviceShipmentWeight.GetAll();
-                    List<SelectListItem> selectShipmentWeightList = shipmentWeightList.Select(s => new SelectListItem { Text = s.ShipmentWeightDescpription, Value = s.ShipmentWeightId.ToString() }).ToList();
+                    List<SelectListItem> selectShipmentWeightList = shipmentWeightList.Select(s => new SelectListItem { Text = s.ShipmentWeightDescription, Value = s.ShipmentWeightId.ToString() }).ToList();
 
                     model.AdditionalServices = selectAdditionalServicesList;
                     model.ShipmentWeights = selectShipmentWeightList;
@@ -125,24 +125,19 @@ namespace DeliveryServiceApp.Controllers
 
                     foreach (AdditonalServiceViewModel sa in model.Services)
                     {
-                        additionalServicesPrice += additionalServices.Find(s => s.AdditionalServiceId == sa.AdditionalServiceId).AdditionalServicePrice;
+                        var additionalService = additionalServices.Find(s => s.AdditionalServiceId == sa.AdditionalServiceId);
+                        additionalServicesPrice += additionalService.AdditionalServicePrice;
+                        shipment.AdditionalServices.Add(new AdditionalServiceShipment 
+                        { 
+                                  AdditionalServiceId = additionalService.AdditionalServiceId, 
+                                  AdditionalService = additionalService
+                        });
                     }
                 }
 
                 shipment.Price = weightPrice + additionalServicesPrice;
 
 				serviceShipment.Add(shipment);
-
-
-				var newShipment = serviceShipment.FindByCode(shipment.ShipmentCode);
-
-                foreach (AdditonalServiceViewModel sa in model.Services)
-                {
-                    AdditionalServiceShipment ass = new AdditionalServiceShipment();
-                    ass.AdditionalServiceId = sa.AdditionalServiceId;
-                    ass.ShipmentId = newShipment.ShipmentId;
-					serviceAddionalServiceShipment.Add(ass);
-				}
 
 				return RedirectToAction("CustomerShipments");
 

@@ -20,7 +20,7 @@ namespace DeliveryServiceDomain
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         public double Price { get; set; }
-        public List<AdditionalServiceShipment> AdditionalServices { get; set; }
+        public List<AdditionalServiceShipment> AdditionalServices { get; set; } = new List<AdditionalServiceShipment>();
         public string Note { get; set; }
     }
 }

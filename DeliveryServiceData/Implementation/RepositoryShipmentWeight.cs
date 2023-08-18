@@ -47,7 +47,7 @@ namespace DeliveryServiceData.Implementation
 			{
                 using (var connection = context.CreateConnection())
                 {
-                    var procedure = "[dbo].[GetShipmentWeightById]";
+                    var procedure = "[dbo].[GetAllShipmentWeights]";
                     var shipmentWeights = connection.Query<ShipmentWeight>(procedure, commandType: CommandType.StoredProcedure);
 
                     return shipmentWeights.ToList();

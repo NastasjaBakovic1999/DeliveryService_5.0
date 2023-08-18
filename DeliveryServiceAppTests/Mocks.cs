@@ -304,37 +304,37 @@ namespace DeliveryServiceAppTests
                 new ShipmentWeight
                 {
                     ShipmentWeightId = 1,
-                    ShipmentWeightDescpription = "up to 0,5kg",
+                    ShipmentWeightDescription = "up to 0,5kg",
                     ShipmentWeightPrice = 80
                 },
                 new ShipmentWeight
                 {
                     ShipmentWeightId = 2,
-                    ShipmentWeightDescpription = "from 0,5 to 2kg",
+                    ShipmentWeightDescription = "from 0,5 to 2kg",
                     ShipmentWeightPrice = 110
                 },
                 new ShipmentWeight
                 {
                     ShipmentWeightId = 3,
-                    ShipmentWeightDescpription = "from 2 to 4kg",
+                    ShipmentWeightDescription = "from 2 to 4kg",
                     ShipmentWeightPrice = 150
                 },
                 new ShipmentWeight
                 {
                     ShipmentWeightId = 4,
-                    ShipmentWeightDescpription = "from 4kg to 7kg",
+                    ShipmentWeightDescription = "from 4kg to 7kg",
                     ShipmentWeightPrice = 190
                 },
                 new ShipmentWeight
                 {
                     ShipmentWeightId = 5,
-                    ShipmentWeightDescpription = "from 7 to 10kg",
+                    ShipmentWeightDescription = "from 7 to 10kg",
                     ShipmentWeightPrice = 240
                 },
                 new ShipmentWeight
                 {
                     ShipmentWeightId = 6,
-                    ShipmentWeightDescpription = "over 10kg",
+                    ShipmentWeightDescription = "over 10kg",
                     ShipmentWeightPrice = 300
                 },
             };

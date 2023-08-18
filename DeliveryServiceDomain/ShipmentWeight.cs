@@ -9,7 +9,7 @@ namespace DeliveryServiceDomain
     public class ShipmentWeight
     {
         public int ShipmentWeightId { get; set; }
-        public string ShipmentWeightDescpription { get; set; }
+        public string ShipmentWeightDescription { get; set; }
         public double ShipmentWeightPrice { get; set; }
         public List<Shipment> Shipments { get; set; }
     }

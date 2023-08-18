@@ -87,11 +87,11 @@ namespace DeliveryServiceDomain
             );
 
             modelBuilder.Entity<ShipmentWeight>().HasData(
-                new ShipmentWeight { ShipmentWeightId = 1, ShipmentWeightDescpription = "Up to 0,5 kg", ShipmentWeightPrice = 250},
-                new ShipmentWeight { ShipmentWeightId = 2, ShipmentWeightDescpription = "Over 0,5 to 2kg", ShipmentWeightPrice = 300},
-                new ShipmentWeight { ShipmentWeightId = 3, ShipmentWeightDescpription = "Over 2 to 5kg", ShipmentWeightPrice = 390},
-                new ShipmentWeight { ShipmentWeightId = 4, ShipmentWeightDescpription = "Over 5 to 10kg", ShipmentWeightPrice = 510},
-                new ShipmentWeight { ShipmentWeightId = 5, ShipmentWeightDescpription = "Over 10 to 20kg", ShipmentWeightPrice = 700}
+                new ShipmentWeight { ShipmentWeightId = 1, ShipmentWeightDescription = "Up to 0,5 kg", ShipmentWeightPrice = 250},
+                new ShipmentWeight { ShipmentWeightId = 2, ShipmentWeightDescription = "Over 0,5 to 2kg", ShipmentWeightPrice = 300},
+                new ShipmentWeight { ShipmentWeightId = 3, ShipmentWeightDescription = "Over 2 to 5kg", ShipmentWeightPrice = 390},
+                new ShipmentWeight { ShipmentWeightId = 4, ShipmentWeightDescription = "Over 5 to 10kg", ShipmentWeightPrice = 510},
+                new ShipmentWeight { ShipmentWeightId = 5, ShipmentWeightDescription = "Over 10 to 20kg", ShipmentWeightPrice = 700}
             );
         }
 
