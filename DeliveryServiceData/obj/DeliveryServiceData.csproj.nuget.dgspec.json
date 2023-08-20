@@ -51,7 +51,7 @@
           "dependencies": {
             "Dapper": {
               "target": "Package",
-              "version": "[2.0.143, )"
+              "version": "[2.0.151, )"
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
@@ -127,6 +127,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.151, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.13, )"

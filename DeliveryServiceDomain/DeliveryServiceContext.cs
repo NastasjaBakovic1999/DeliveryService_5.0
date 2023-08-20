@@ -1,6 +1,8 @@
-﻿using DeliveryServiceDomain.Configurations;
+﻿using Dapper;
+using DeliveryServiceDomain.Configurations;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DeliveryServiceDomain
 {
-    public class DeliveryServiceContext : DbContext
+    public class DeliveryServiceContext : DbContext, IDatabaseOperations
     {
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
@@ -27,6 +29,11 @@ namespace DeliveryServiceDomain
             _connectionString = _configuration.GetConnectionString("SqlConnection");
         }
 
+        public IDbConnection CreateConnection()
+        {
+            return new SqlConnection(_connectionString);
+        }
+
         public DbSet<Shipment> Shipments { get; set; }
         public DbSet<AdditionalService> AdditionalServices { get; set; }
         public DbSet<AdditionalServiceShipment> AdditionalServiceShipments { get; set; }
@@ -39,7 +46,7 @@ namespace DeliveryServiceDomain
             optionsBuilder
                .UseLoggerFactory(MyLoggerFactory)
                .EnableSensitiveDataLogging()
-               .UseSqlServer("Server=(localdb)\\MSSQLLocalDB; Database=Delivery_Service_Database2;");
+               .UseSqlServer(_configuration.GetConnectionString("SqlConnection"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -95,7 +102,36 @@ namespace DeliveryServiceDomain
             );
         }
 
-        public IDbConnection CreateConnection()
-             => new SqlConnection(_connectionString);
+        public T QuerySingleOrDefault<T>(string procedure, object parameters = null, CommandType commandType = CommandType.StoredProcedure)
+        {
+            using (var connection = CreateConnection())
+            {
+                connection.Open();
+                return connection.QuerySingleOrDefault<T>(procedure, parameters, commandType: commandType);
+            }
+        }
+
+        public int Execute(string procedure, object parameters = null, CommandType commandType = CommandType.StoredProcedure)
+        {
+            using (var connection = CreateConnection())
+            {
+                connection.Open();
+                return connection.Execute(procedure, parameters, commandType: commandType);
+            }
+        }
+
+        public IEnumerable<T> Query<T>(string procedure, object parameters = null, CommandType commandType = CommandType.StoredProcedure)
+        {
+            using (var connection = CreateConnection())
+            {
+                connection.Open();
+                return connection.Query<T>(procedure, parameters, commandType: commandType);
+            }
+        }
+
+        public IEnumerable<T> Query<T>(string procedure, CommandType commandType = CommandType.StoredProcedure)
+        {
+            return Query<T>(procedure, null, commandType);
+        }
     }
 }

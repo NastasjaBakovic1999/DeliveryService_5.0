@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "obceMwyA+wC501qRZykkR2nw8oSEx0Syj0RZ7evkVKOuiSiou4g8+reBt8+MHkeUw5of70BAkHXwBJiQlsG0yw==",
+  "dgSpecHash": "h3LWiMUwGQi3kehVHGFTsRABCrlGi+ztW7sitptW7/C4wOQiwc2hG6MV8LfaJfOmxMazX5LGl2uq48uhrzo4Qg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nastasja\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\Nastasja\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Nastasja\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
-    "C:\\Users\\Nastasja\\.nuget\\packages\\dapper\\2.0.143\\dapper.2.0.143.nupkg.sha512",
+    "C:\\Users\\Nastasja\\.nuget\\packages\\dapper\\2.0.151\\dapper.2.0.151.nupkg.sha512",
     "C:\\Users\\Nastasja\\.nuget\\packages\\googleanalytics.googlecharts.net\\1.0.1\\googleanalytics.googlecharts.net.1.0.1.nupkg.sha512",
     "C:\\Users\\Nastasja\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Nastasja\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

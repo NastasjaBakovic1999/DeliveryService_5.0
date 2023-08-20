@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "qVGyj7S4Q6uQDK0k9gZPziSgBPu0AY4BgD0y1Cp+Jhde6RusoXOqCAKI1dojxn6DF8YcxvrGJukT7DDLklJdVA==",
+  "dgSpecHash": "o4En5GM+DCQxyPpjIyApSlkYdPjB0monvXXzANwwFvYhuUoSR6GlHZ3aDu6a28B3qRyH5mJUwxjjjhGfm+03Mw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceDomain\\DeliveryServiceDomain.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Nastasja\\.nuget\\packages\\dapper\\2.0.151\\dapper.2.0.151.nupkg.sha512",
     "C:\\Users\\Nastasja\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Nastasja\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.13\\microsoft.aspnetcore.cryptography.internal.6.0.13.nupkg.sha512",
     "C:\\Users\\Nastasja\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.13\\microsoft.aspnetcore.cryptography.keyderivation.6.0.13.nupkg.sha512",

@@ -46,7 +46,7 @@
           }
         }
       },
-      "Dapper/2.0.143": {
+      "Dapper/2.0.151": {
         "type": "package",
         "compile": {
           "lib/net5.0/Dapper.dll": {
@@ -1191,6 +1191,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Dapper": "2.0.151",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.13",
           "Microsoft.EntityFrameworkCore": "6.0.13",
           "Microsoft.EntityFrameworkCore.Relational": "6.0.13",
@@ -1246,15 +1247,15 @@
         "lib/netstandard2.0/Azure.Identity.xml"
       ]
     },
-    "Dapper/2.0.143": {
-      "sha512": "Vh0U+Fins3IpS7APUlrzga3+1mswWngB5fZ0xj4w+FQR5JhJzA5uHV5rSepkahvmshNZUA0YcHtae9vFQpiVTw==",
+    "Dapper/2.0.151": {
+      "sha512": "mMcZgx1lim0/i1Ozu+lgnBM4GwNIHpCuxV6BV2ovsEfZAXRAq4jb6RIhxGDcVjtmXMLPpdp85jHPdDjBMMwejw==",
       "type": "package",
-      "path": "dapper/2.0.143",
+      "path": "dapper/2.0.151",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Dapper.png",
-        "dapper.2.0.143.nupkg.sha512",
+        "dapper.2.0.151.nupkg.sha512",
         "dapper.nuspec",
         "lib/net461/Dapper.dll",
         "lib/net461/Dapper.xml",
@@ -3089,7 +3090,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Dapper >= 2.0.143",
+      "Dapper >= 2.0.151",
       "DeliveryServiceDomain >= 1.0.0",
       "Microsoft.Data.SqlClient >= 5.1.1",
       "Microsoft.EntityFrameworkCore.Relational >= 6.0.16",
@@ -3147,7 +3148,7 @@
         "dependencies": {
           "Dapper": {
             "target": "Package",
-            "version": "[2.0.143, )"
+            "version": "[2.0.151, )"
           },
           "Microsoft.Data.SqlClient": {
             "target": "Package",
