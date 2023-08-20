@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DeliveryServiceDomain
 {
-    public class DeliveryServiceContext : DbContext, IDatabaseOperations
+    public class DeliveryServiceContext : DbContext
     {
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
@@ -100,38 +100,6 @@ namespace DeliveryServiceDomain
                 new ShipmentWeight { ShipmentWeightId = 4, ShipmentWeightDescription = "Over 5 to 10kg", ShipmentWeightPrice = 510},
                 new ShipmentWeight { ShipmentWeightId = 5, ShipmentWeightDescription = "Over 10 to 20kg", ShipmentWeightPrice = 700}
             );
-        }
-
-        public T QuerySingleOrDefault<T>(string procedure, object parameters = null, CommandType commandType = CommandType.StoredProcedure)
-        {
-            using (var connection = CreateConnection())
-            {
-                connection.Open();
-                return connection.QuerySingleOrDefault<T>(procedure, parameters, commandType: commandType);
-            }
-        }
-
-        public int Execute(string procedure, object parameters = null, CommandType commandType = CommandType.StoredProcedure)
-        {
-            using (var connection = CreateConnection())
-            {
-                connection.Open();
-                return connection.Execute(procedure, parameters, commandType: commandType);
-            }
-        }
-
-        public IEnumerable<T> Query<T>(string procedure, object parameters = null, CommandType commandType = CommandType.StoredProcedure)
-        {
-            using (var connection = CreateConnection())
-            {
-                connection.Open();
-                return connection.Query<T>(procedure, parameters, commandType: commandType);
-            }
-        }
-
-        public IEnumerable<T> Query<T>(string procedure, CommandType commandType = CommandType.StoredProcedure)
-        {
-            return Query<T>(procedure, null, commandType);
-        }
+        }        
     }
 }

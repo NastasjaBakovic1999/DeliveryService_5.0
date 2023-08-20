@@ -1,5 +1,6 @@
 ﻿using DeliveryServiceData.Implementation;
 using DeliveryServiceDomain;
+using DeliveryServiceDomain.DatabaseOperations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,30 +11,19 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DeliveryServiceContext _deliveryServiceContext;
-
-        public UnitOfWork(DeliveryServiceContext deliveryServiceContext)
+        private readonly IDatabaseOperations _databaseOperations;
+        public UnitOfWork(IDatabaseOperations databaseOperations)
         {
-            _deliveryServiceContext = deliveryServiceContext;
-            Shipment = new RepositoryShipment(deliveryServiceContext);
-            AdditionalService = new RepositoryAdditionalService(deliveryServiceContext);
-            AdditionalServiceShipment = new RepositoryAdditionalServiceShipment(deliveryServiceContext);
-            ShipmentWeight = new RepositoryShipmentWeight(deliveryServiceContext);
+            _databaseOperations = databaseOperations;
+            Shipment = new RepositoryShipment(databaseOperations);
+            AdditionalService = new RepositoryAdditionalService(databaseOperations);
+            AdditionalServiceShipment = new RepositoryAdditionalServiceShipment(databaseOperations);
+            ShipmentWeight = new RepositoryShipmentWeight(databaseOperations);
         }
 
         public IRepositoryAdditionalService AdditionalService { get; set; }
         public IRepositoryAdditionalServiceShipment AdditionalServiceShipment { get; set; }
         public IRepositoryShipment Shipment { get; set; }
         public IRepositoryShipmentWeight ShipmentWeight { get; set; }
-
-        public void Commit()
-        {
-            _deliveryServiceContext.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            _deliveryServiceContext.Dispose();
-        }
     }
 }

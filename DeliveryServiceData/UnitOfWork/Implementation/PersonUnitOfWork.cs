@@ -1,5 +1,6 @@
 ﻿using DeliveryServiceData.Implementation;
 using DeliveryServiceDomain;
+using DeliveryServiceDomain.DatabaseOperations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,24 +11,14 @@ namespace DeliveryServiceData.UnitOfWork.Implementation
 {
     public class PersonUnitOfWork : IPersonUnitOfWork
     {
-        private readonly PersonContext _personContext;
+        private readonly IDatabaseOperations _databaseOperations;
 
-        public PersonUnitOfWork(PersonContext personContext)
+        public PersonUnitOfWork(IDatabaseOperations databaseOperations)
         {
-            _personContext = personContext;
-            Customer = new RepositoryCustomer(personContext);
+            _databaseOperations = databaseOperations;
+            Customer = new RepositoryCustomer(databaseOperations);
         }
 
         public IRepositoryCustomer Customer { get; set; }
-
-        public void Commit()
-        {
-            _personContext.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            _personContext.Dispose();
-        }
     }
 }

@@ -98,7 +98,6 @@ namespace DeliveryServiceAppTests
             Assert.Equal(shipment.CustomerId, newShipment.CustomerId);
             Assert.Equal(shipment.Price, newShipment.Price);
             unitOfWork.Verify(x => x.Shipment.Add(It.Is<Shipment>(p => p.ShipmentId == 4)), Times.Once);
-            unitOfWork.Verify(s => s.Commit(), Times.Once);
         }
 
         [Theory]
@@ -109,7 +108,6 @@ namespace DeliveryServiceAppTests
 
             Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(newShipment));
             unitOfWork.Verify(x => x.Shipment.Add(It.IsAny<Shipment>()), Times.Never);
-            unitOfWork.Verify(s => s.Commit(), Times.Never);
         }
 
         [Theory]
@@ -120,7 +118,6 @@ namespace DeliveryServiceAppTests
 
             Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(newShipment));
             unitOfWork.Verify(x => x.Shipment.Add(It.IsAny<Shipment>()), Times.Never);
-            unitOfWork.Verify(s => s.Commit(), Times.Never);
         }
 
         [Theory]
@@ -131,7 +128,6 @@ namespace DeliveryServiceAppTests
 
             Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(newShipment));
             unitOfWork.Verify(x => x.Shipment.Add(It.IsAny<Shipment>()), Times.Never);
-            unitOfWork.Verify(s => s.Commit(), Times.Never);
         }
 
         [Theory]
@@ -142,7 +138,6 @@ namespace DeliveryServiceAppTests
 
             Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(newShipment));
             unitOfWork.Verify(x => x.Shipment.Add(It.IsAny<Shipment>()), Times.Never);
-            unitOfWork.Verify(s => s.Commit(), Times.Never);
         }
 
         [Theory]
@@ -153,7 +148,6 @@ namespace DeliveryServiceAppTests
 
             Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(newShipment));
             unitOfWork.Verify(x => x.Shipment.Add(It.IsAny<Shipment>()), Times.Never);
-            unitOfWork.Verify(s => s.Commit(), Times.Never);
         }
 
         [Fact]

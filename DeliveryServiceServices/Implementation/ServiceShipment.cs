@@ -24,7 +24,6 @@ namespace DeliveryServiceApp.Services.Implementation
 			}
 
 			unitOfWork.Shipment.Add(shipment);
-			unitOfWork.Commit();
 		}
 
 		private bool IsValid(Shipment shipment)
@@ -99,7 +98,6 @@ namespace DeliveryServiceApp.Services.Implementation
 		public void RemoveShipment(int shipmentId)
 		{
 			unitOfWork.Shipment.RemoveShipment(shipmentId);
-            unitOfWork.Commit();
 		}
 	}
 }

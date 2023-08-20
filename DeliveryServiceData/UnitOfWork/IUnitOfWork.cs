@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace DeliveryServiceData.UnitOfWork
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
         public IRepositoryAdditionalService AdditionalService { get; set; }
         public IRepositoryAdditionalServiceShipment AdditionalServiceShipment { get; set; }
         public IRepositoryShipment Shipment { get; set; }
         public IRepositoryShipmentWeight ShipmentWeight { get; set; }
-        void Commit();
     }
 }

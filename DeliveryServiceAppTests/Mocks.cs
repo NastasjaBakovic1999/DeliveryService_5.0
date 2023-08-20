@@ -356,7 +356,6 @@ namespace DeliveryServiceAppTests
             unitOfWork.Setup(x => x.AdditionalServiceShipment).Returns(GetMockAdditionalServiceShipmentRepository().Object);
             unitOfWork.Setup(x => x.Shipment).Returns(GetMockShipmentRepository().Object);
             unitOfWork.Setup(x => x.ShipmentWeight).Returns(GetMockShipmentWeightRepository().Object);
-            unitOfWork.Setup(x => x.Commit()).Verifiable();
             return unitOfWork;
         }
 
@@ -364,7 +363,6 @@ namespace DeliveryServiceAppTests
         {
             var personUnitOfWork = new Mock<IPersonUnitOfWork>();
             personUnitOfWork.Setup(x => x.Customer).Returns(GetMockCustomerRepository().Object);
-            personUnitOfWork.Setup(x => x.Commit()).Verifiable();
             return personUnitOfWork;
         }
     }

@@ -59,7 +59,6 @@ namespace DeliveryServiceAppTests
             Assert.Equal(newAdditionalServiceShipment.AdditionalServiceId, additionalServiceShipment.AdditionalServiceId);
             Assert.Equal(newAdditionalServiceShipment.ShipmentId, additionalServiceShipment.ShipmentId);
             unitOfWork.Verify(x => x.AdditionalServiceShipment.Add(It.Is<AdditionalServiceShipment>(p => p.AdditionalServiceId == 1 && p.ShipmentId == 2)), Times.Once);
-            unitOfWork.Verify(x => x.Commit(), Times.Once);
         }
 
         [Theory]
@@ -70,7 +69,6 @@ namespace DeliveryServiceAppTests
 
             Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(newAdditionalServiceShipment));
             unitOfWork.Verify(x => x.AdditionalServiceShipment.Add(It.IsAny<AdditionalServiceShipment>()), Times.Never);
-            unitOfWork.Verify(x => x.Commit(), Times.Never);
         }
 
         [Fact]
@@ -87,7 +85,6 @@ namespace DeliveryServiceAppTests
 
             Assert.Throws<ArgumentOutOfRangeException>(() => service.Add(newAdditionalServiceShipment));
             unitOfWork.Verify(x => x.AdditionalServiceShipment.Add(It.IsAny<AdditionalServiceShipment>()), Times.Never);
-            unitOfWork.Verify(x => x.Commit(), Times.Never);
         }
 
         public static IEnumerable<object[]> AdditionalServiceShipmentData()

@@ -3,11 +3,13 @@ using DeliveryServiceApp.Services.Interfaces;
 using DeliveryServiceData.UnitOfWork;
 using DeliveryServiceData.UnitOfWork.Implementation;
 using DeliveryServiceDomain;
+using DeliveryServiceDomain.DatabaseOperations;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,11 +35,20 @@ namespace DeliveryServiceApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IDbConnection>(provider =>
+            {
+                var connection = new SqlConnection("Server=(localdb)\\MSSQLLocalDB; Database=Delivery_Service_Database2;");
+                return connection;
+            });
+
+            services.AddScoped<IDatabaseOperations, DatabaseOperations>();
             services.AddScoped<IServiceAdditonalService, ServiceAdditionalService>();
             services.AddScoped<IServiceAddionalServiceShipment, ServiceAdditionalServiceShipment>();
             services.AddScoped<IServiceCustomer, ServiceCustomer>();
             services.AddScoped<IServiceShipment, ServiceShipment>();
             services.AddScoped<IServiceShipmentWeight, ServiceShipmentWeight>();
+
+           
 
             services.AddControllersWithViews(
             ).AddJsonOptions(x => x.JsonSerializerOptions.MaxDepth = Int32.MaxValue);

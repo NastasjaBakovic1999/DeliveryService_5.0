@@ -25,7 +25,6 @@ namespace DeliveryServiceApp.Services.Implementation
 			}
 
 			unitOfWork.Customer.Edit(customer);
-			unitOfWork.Commit();
 		}
 
 		private bool IsValid(Customer customer)

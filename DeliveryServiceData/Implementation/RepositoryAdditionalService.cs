@@ -14,52 +14,43 @@ namespace DeliveryServiceData.Implementation
 {
     public class RepositoryAdditionalService :  IRepositoryAdditionalService
     {
-		private readonly DeliveryServiceContext context;
+        private readonly IDatabaseOperations _database;
 
-		public RepositoryAdditionalService(DeliveryServiceContext context)
-		{
-			this.context = context;
-		}
+        public RepositoryAdditionalService(IDatabaseOperations database)
+        {
+            _database = database;
+        }
 
-		public AdditionalService FindByID(int id, params int[] ids)
-		{
-			try
-			{
-                using (var connection = context.CreateConnection())
-                {
-                    var procedure = "[dbo].[GetAdditionalServiceById]";
-                    var parameters = new DynamicParameters();
-					parameters.Add("@AdditionalServiceId", id);
-					var additionalService = connection.QuerySingleOrDefault<AdditionalService>(procedure, parameters, commandType: CommandType.StoredProcedure);
+        public AdditionalService FindByID(int id, params int[] ids)
+        {
+            try
+            {
+                var procedure = "[dbo].[GetAdditionalServiceById]";
+                var parameters = new DynamicParameters();
+                parameters.Add("@AdditionalServiceId", id);
 
-                    return additionalService;
-                }
+                return _database.QuerySingleOrDefault<AdditionalService>(procedure, parameters, commandType: CommandType.StoredProcedure);
             }
-			catch (Exception ex)
-			{
-				throw new Exception($"Error loading additional service! {Environment.NewLine}" +
-									$"System Error: {ex.Message}");
-			}
-		}
-
-		public List<AdditionalService> GetAll()
-		{
-			try
-			{
-                using (var connection = context.CreateConnection())
-                {
-                    var procedure = "[dbo].[GetAllAdditionalServices]";
-                    var parameters = new DynamicParameters();
-                    var additionalServices = connection.Query<AdditionalService>(procedure, commandType: CommandType.StoredProcedure);
-
-                    return additionalServices.ToList();
-                }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error loading additional service! {Environment.NewLine}" +
+                                    $"System Error: {ex.Message}");
             }
-			catch (Exception ex)
-			{
-				throw new Exception($"Error returning all additional services! {Environment.NewLine}" +
-									$"System Error: {ex.Message}");
-			}
-		}
-	}
+        }
+
+        public List<AdditionalService> GetAll()
+        {
+            try
+            {
+                var procedure = "[dbo].[GetAllAdditionalServices]";
+
+                return _database.Query<AdditionalService>(procedure, commandType: CommandType.StoredProcedure).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error returning all additional services! {Environment.NewLine}" +
+                                    $"System Error: {ex.Message}");
+            }
+        }
+    }
 }

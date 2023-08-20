@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace DeliveryServiceDomain
 {
-    public class PersonContext : IdentityDbContext<Person, IdentityRole<int>, int>, IDatabaseOperations
+    public class PersonContext : IdentityDbContext<Person, IdentityRole<int>, int>
     {
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
@@ -87,38 +87,6 @@ namespace DeliveryServiceDomain
                 new IdentityUserRole<int> {RoleId = 1, UserId = 1 },
                 new IdentityUserRole<int> {RoleId = 1, UserId = 2 }
                 );
-        }
-
-        public T QuerySingleOrDefault<T>(string procedure, object parameters = null, CommandType commandType = CommandType.StoredProcedure)
-        {
-            using (var connection = CreateConnection())
-            {
-                connection.Open();
-                return connection.QuerySingleOrDefault<T>(procedure, parameters, commandType: commandType);
-            }
-        }
-
-        public int Execute(string procedure, object parameters = null, CommandType commandType = CommandType.StoredProcedure)
-        {
-            using (var connection = CreateConnection())
-            {
-                connection.Open();
-                return connection.Execute(procedure, parameters, commandType: commandType);
-            }
-        }
-
-        public IEnumerable<T> Query<T>(string procedure, object parameters = null, CommandType commandType = CommandType.StoredProcedure)
-        {
-            using (var connection = CreateConnection())
-            {
-                connection.Open();
-                return connection.Query<T>(procedure, parameters, commandType: commandType);
-            }
-        }
-
-        public IEnumerable<T> Query<T>(string procedure, CommandType commandType = CommandType.StoredProcedure)
-        {
-            return Query<T>(procedure, null, commandType);
         }
     }
 

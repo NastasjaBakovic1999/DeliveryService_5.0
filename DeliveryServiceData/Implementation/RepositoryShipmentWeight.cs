@@ -13,51 +13,43 @@ namespace DeliveryServiceData.Implementation
 {
 	internal class RepositoryShipmentWeight : IRepositoryShipmentWeight
 	{
-		private readonly DeliveryServiceContext context;
+        private readonly IDatabaseOperations _database;
 
-		public RepositoryShipmentWeight(DeliveryServiceContext context)
-		{
-			this.context = context;
-		}
+        public RepositoryShipmentWeight(IDatabaseOperations database)
+        {
+            _database = database;
+        }
 
-		public ShipmentWeight FindByID(int id, params int[] ids)
-		{
-			try
-			{
-                using (var connection = context.CreateConnection())
-                {
-                    var procedure = "[dbo].[GetShipmentWeightById]";
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@ShipmentWeightId", id);
-                    var shipmentWeight = connection.QuerySingleOrDefault<ShipmentWeight>(procedure, parameters, commandType: CommandType.StoredProcedure);
+        public ShipmentWeight FindByID(int id, params int[] ids)
+        {
+            try
+            {
+                var procedure = "[dbo].[GetShipmentWeightById]";
+                var parameters = new DynamicParameters();
+                parameters.Add("@ShipmentWeightId", id);
 
-                    return shipmentWeight;
-                }
+                return _database.QuerySingleOrDefault<ShipmentWeight>(procedure, parameters, commandType: CommandType.StoredProcedure);
             }
-			catch (Exception ex)
-			{
-				throw new Exception($"Error loading shipment weight! {Environment.NewLine}" +
-									$"System Error: {ex.Message}");
-			}
-		}
-
-		public List<ShipmentWeight> GetAll()
-		{
-			try
-			{
-                using (var connection = context.CreateConnection())
-                {
-                    var procedure = "[dbo].[GetAllShipmentWeights]";
-                    var shipmentWeights = connection.Query<ShipmentWeight>(procedure, commandType: CommandType.StoredProcedure);
-
-                    return shipmentWeights.ToList();
-                }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error loading shipment weight! {Environment.NewLine}" +
+                                    $"System Error: {ex.Message}");
             }
-			catch (Exception ex)
-			{
-				throw new Exception($"Error loading all shipment weights! {Environment.NewLine}" +
-									$"System Error: {ex.Message}");
-			}
-		}
-	}
+        }
+
+        public List<ShipmentWeight> GetAll()
+        {
+            try
+            {
+                var procedure = "[dbo].[GetAllShipmentWeights]";
+
+                return _database.Query<ShipmentWeight>(procedure, commandType: CommandType.StoredProcedure).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error loading all shipment weights! {Environment.NewLine}" +
+                                    $"System Error: {ex.Message}");
+            }
+        }
+    }
 }

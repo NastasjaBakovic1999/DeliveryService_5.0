@@ -25,7 +25,6 @@ namespace DeliveryServiceApp.Services.Implementation
 			}
 
 			unitOfWork.AdditionalServiceShipment.Add(additionalServiceShipment);
-			unitOfWork.Commit();
 		}
 
 		private bool IsValid(AdditionalServiceShipment additionalServiceShipment)

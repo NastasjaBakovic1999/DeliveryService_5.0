@@ -71,7 +71,6 @@ namespace DeliveryServiceAppTests
             Assert.Equal(customer.PhoneNumber, customerUpdated.PhoneNumber);
 
             unitOfWork.Verify(x => x.Customer.Edit(It.IsAny<Customer>()), Times.Once);
-            unitOfWork.Verify(x => x.Commit(), Times.Once);
         }
 
         [Fact]
@@ -91,7 +90,6 @@ namespace DeliveryServiceAppTests
             
             Assert.Throws<ArgumentOutOfRangeException>(() => service.Edit(customer));
             unitOfWork.Verify(x => x.Customer.Edit(It.IsAny<Customer>()), Times.Never);
-            unitOfWork.Verify(x => x.Commit(), Times.Never);
         }
     }
 }

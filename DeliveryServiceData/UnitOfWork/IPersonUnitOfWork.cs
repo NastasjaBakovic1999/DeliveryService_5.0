@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DeliveryServiceData.UnitOfWork
 {
-    public interface IPersonUnitOfWork : IDisposable
+    public interface IPersonUnitOfWork
     {
         public IRepositoryCustomer Customer { get; set; }
-        void Commit();
     }
 }

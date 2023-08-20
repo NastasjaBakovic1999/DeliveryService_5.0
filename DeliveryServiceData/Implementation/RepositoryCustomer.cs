@@ -14,72 +14,62 @@ namespace DeliveryServiceData.Implementation
 {
     public class RepositoryCustomer : IRepositoryCustomer
     {
-		private readonly PersonContext context;
+        private readonly IDatabaseOperations _database;
 
-		public RepositoryCustomer(PersonContext context)
-		{
-			this.context = context;
-		}
+        public RepositoryCustomer(IDatabaseOperations database)
+        {
+            _database = database;
+        }
 
-		public Customer FindByID(int id, params int[] ids)
-		{
-			try
-			{
-                using (var connection = context.CreateConnection())
-                {
-                    var procedure = "[dbo].[GetCustomerById]";
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@CustomerId", id);
-                    var customer = connection.QuerySingleOrDefault<Customer>(procedure, parameters, commandType: CommandType.StoredProcedure);
+        public Customer FindByID(int id, params int[] ids)
+        {
+            try
+            {
+                var procedure = "[dbo].[GetCustomerById]";
+                var parameters = new DynamicParameters();
+                parameters.Add("@CustomerId", id);
 
-                    return customer;
-                }
+                return _database.QuerySingleOrDefault<Customer>(procedure, parameters, commandType: CommandType.StoredProcedure);
             }
-			catch (Exception ex)
-			{
-				throw new Exception($"Error loading user! {Environment.NewLine}" +
-									$"System Error: {ex.Message}");
-			}
-		}
-
-		public List<Customer> GetAll()
-		{
-			try
-			{
-                using (var connection = context.CreateConnection())
-                {
-                    var procedure = "[dbo].[GetAllCustomers]";
-                    var customers = connection.Query<Customer>(procedure, commandType: CommandType.StoredProcedure);
-
-                    return customers.ToList();
-                }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error loading user! {Environment.NewLine}" +
+                                    $"System Error: {ex.Message}");
             }
-			catch (Exception ex)
-			{
-				throw new Exception($"Error loading all users! {Environment.NewLine}" +
-									$"System Error: {ex.Message}");
-			}
-		}
+        }
 
-		public void Edit(Customer entity)
-		{
-			try
-			{
-                using (var connection = context.CreateConnection())
-                {
-                    var procedure = "[dbo].[EditCustomer]";
-                    var parameters = new DynamicParameters();
-					parameters.Add("@Address", entity.Address, DbType.String);
-					parameters.Add("@PostalCode", entity.PostalCode, DbType.String);
-					parameters.Add("@CustomerId", entity.Id, DbType.Int32);
-                    var customers = connection.Execute(procedure, parameters, commandType: CommandType.StoredProcedure);
-                }
+        public List<Customer> GetAll()
+        {
+            try
+            {
+                var procedure = "[dbo].[GetAllCustomers]";
+
+                return _database.Query<Customer>(procedure, commandType: CommandType.StoredProcedure).ToList();
             }
-			catch (Exception ex)
-			{
-				throw new Exception($"Error changing user data! {Environment.NewLine}" +
-									$"System Error: {ex.Message}");
-			}
-		}
-	}
+            catch (Exception ex)
+            {
+                throw new Exception($"Error loading all users! {Environment.NewLine}" +
+                                    $"System Error: {ex.Message}");
+            }
+        }
+
+        public void Edit(Customer entity)
+        {
+            try
+            {
+                var procedure = "[dbo].[EditCustomer]";
+                var parameters = new DynamicParameters();
+                parameters.Add("@Address", entity.Address, DbType.String);
+                parameters.Add("@PostalCode", entity.PostalCode, DbType.String);
+                parameters.Add("@CustomerId", entity.Id, DbType.Int32);
+
+                _database.Execute(procedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error changing user data! {Environment.NewLine}" +
+                                    $"System Error: {ex.Message}");
+            }
+        }
+    }
 }

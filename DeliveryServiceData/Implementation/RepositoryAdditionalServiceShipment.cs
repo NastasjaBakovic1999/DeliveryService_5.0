@@ -13,72 +13,62 @@ namespace DeliveryServiceData.Implementation
 {
     public class RepositoryAdditionalServiceShipment : IRepositoryAdditionalServiceShipment
     {
-		private readonly DeliveryServiceContext context;
+        private readonly IDatabaseOperations _database;
 
-		public RepositoryAdditionalServiceShipment(DeliveryServiceContext context)
-		{
-			this.context = context;
-		}
+        public RepositoryAdditionalServiceShipment(IDatabaseOperations database)
+        {
+            _database = database;
+        }
 
-		public void Add(AdditionalServiceShipment additionalServiceShipment)
-		{
-			try
-			{
-                using (var connection = context.CreateConnection())
-                {
-                    var procedure = "[dbo].[InsertAdditionalServiceShipment]";
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@AdditionalServiceId", additionalServiceShipment.AdditionalServiceId);
-                    parameters.Add("@ShipmentId", additionalServiceShipment.ShipmentId);
-                    connection.Execute(procedure, parameters, commandType: CommandType.StoredProcedure);
-                }
+        public void Add(AdditionalServiceShipment additionalServiceShipment)
+        {
+            try
+            {
+                var procedure = "[dbo].[InsertAdditionalServiceShipment]";
+                var parameters = new DynamicParameters();
+                parameters.Add("@AdditionalServiceId", additionalServiceShipment.AdditionalServiceId);
+                parameters.Add("@ShipmentId", additionalServiceShipment.ShipmentId);
+
+                _database.Execute(procedure, parameters, commandType: CommandType.StoredProcedure);
             }
-			catch (Exception ex)
-			{
-				throw new Exception($"Error saving shipment and its additional services! {Environment.NewLine}" +
-									$"System Error: {ex.Message}");
-			}
-		}
-
-		public AdditionalServiceShipment FindByID(int id, params int[] ids)
-		{
-			try
-			{
-                using (var connection = context.CreateConnection())
-                {
-                    var procedure = "[dbo].[GetAdditionalServiceShipmentByIDs]";
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@AdditionalServiceId", id);
-                    parameters.Add("@ShipmentId", ids[0]);
-                    var additionalServiceShipment = connection.QuerySingleOrDefault<AdditionalServiceShipment>(procedure, parameters, commandType: CommandType.StoredProcedure);
-
-                    return additionalServiceShipment;
-                }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error saving shipment and its additional services! {Environment.NewLine}" +
+                                    $"System Error: {ex.Message}");
             }
-			catch (Exception ex)
-			{
-				throw new Exception($"Error loading shipment and its additional service! {Environment.NewLine}" +
-									$"System Error: {ex.Message}");
-			}
-		}
+        }
 
-		public List<AdditionalServiceShipment> GetAll()
-		{
-			try
-			{
-                using (var connection = context.CreateConnection())
-                {
-                    var procedure = "[dbo].[GetAllAdditionalServiceShipments]";
-                    var additionalServiceShipments = connection.Query<AdditionalServiceShipment>(procedure, commandType: CommandType.StoredProcedure);
+        public AdditionalServiceShipment FindByID(int id, params int[] ids)
+        {
+            try
+            {
+                var procedure = "[dbo].[GetAdditionalServiceShipmentByIDs]";
+                var parameters = new DynamicParameters();
+                parameters.Add("@AdditionalServiceId", id);
+                parameters.Add("@ShipmentId", ids[0]);
 
-                    return additionalServiceShipments.ToList();
-                }
+                return _database.QuerySingleOrDefault<AdditionalServiceShipment>(procedure, parameters, commandType: CommandType.StoredProcedure);
             }
-			catch (Exception ex)
-			{
-				throw new Exception($"Error returning all shipments and their additional services! {Environment.NewLine}" +
-									$"System Error: {ex.Message}");
-			}
-		}
-	}
+            catch (Exception ex)
+            {
+                throw new Exception($"Error loading shipment and its additional service! {Environment.NewLine}" +
+                                    $"System Error: {ex.Message}");
+            }
+        }
+
+        public List<AdditionalServiceShipment> GetAll()
+        {
+            try
+            {
+                var procedure = "[dbo].[GetAllAdditionalServiceShipments]";
+
+                return _database.Query<AdditionalServiceShipment>(procedure, commandType: CommandType.StoredProcedure).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error returning all shipments and their additional services! {Environment.NewLine}" +
+                                    $"System Error: {ex.Message}");
+            }
+        }
+    }
 }
