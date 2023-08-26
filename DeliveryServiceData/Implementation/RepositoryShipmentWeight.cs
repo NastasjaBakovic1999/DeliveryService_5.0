@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DeliveryServiceData.Implementation
 {
-	internal class RepositoryShipmentWeight : IRepositoryShipmentWeight
+	public class RepositoryShipmentWeight : IRepositoryShipmentWeight
 	{
         private readonly IDatabaseOperations _database;
 

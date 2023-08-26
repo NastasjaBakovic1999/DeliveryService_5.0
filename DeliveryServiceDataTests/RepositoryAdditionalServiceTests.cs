@@ -12,13 +12,93 @@ namespace DeliveryServiceDataTests
     public class RepositoryAdditionalServiceTests
     {
         [Fact]
-        public void GetAll_ValidCall()
+        public void GetAll_ReturnsListOfAdditionalServices()
         {
-            
-                throw new NotImplementedException();
-            
+            var databaseMock = new Mock<IDatabaseOperations>();
+            databaseMock.Setup(db => db.Query<AdditionalService>(It.IsAny<string>(), CommandType.StoredProcedure))
+                .Returns(GetSampleAdditionalServices());
 
+            var repository = new RepositoryAdditionalService(databaseMock.Object);
+
+            var result = repository.GetAll();
+
+            Assert.NotNull(result);
+            Assert.Equal(GetSampleAdditionalServices().Count, result.Count);
+            foreach (var additionalService in result)
+            {
+                Assert.NotEqual(0, additionalService.AdditionalServiceId);
+                Assert.NotNull(additionalService.AdditionalServiceName);
+                Assert.NotEqual(0.0, additionalService.AdditionalServicePrice);
+            }
         }
+
+        [Fact]
+        public void GetAll_ThrowsExceptionOnDatabaseError()
+        {
+            var databaseMock = new Mock<IDatabaseOperations>();
+            databaseMock.Setup(db => db.Query<AdditionalService>(It.IsAny<string>(), CommandType.StoredProcedure))
+                .Throws(new Exception("Database error occurred!"));
+
+            var repository = new RepositoryAdditionalService(databaseMock.Object);
+
+            Assert.Throws<Exception>(()=> repository.GetAll());
+        }
+
+        [Fact]
+        public void FindById_ReturnValidAdditionalService()
+        {
+            var databaseMock = new Mock<IDatabaseOperations>();
+            databaseMock.Setup(db => db.QuerySingleOrDefault<AdditionalService>(It.IsAny<string>(), It.IsAny<object>(), CommandType.StoredProcedure))
+                .Returns((string procedure, object parameters, CommandType commandType) =>
+                {
+                    var inputParams = (DynamicParameters)parameters;
+                    var id = inputParams.Get<int>("@AdditionalServiceId");
+                    var additionalService = GetSampleAdditionalServices().FirstOrDefault(s => s.AdditionalServiceId == id);
+                    return additionalService;
+                });
+
+            var repository = new RepositoryAdditionalService(databaseMock.Object);
+
+            var result = repository.FindByID(1);
+
+            Assert.NotNull(result);
+            Assert.Equal(1, result.AdditionalServiceId);
+            Assert.NotNull(result.AdditionalServiceName);
+            Assert.NotEqual(0.0, result.AdditionalServicePrice);
+        }
+
+        [Fact]
+        public void FindById_ReturnsNullForInvalidId()
+        {
+            var databaseMock = new Mock<IDatabaseOperations>();
+            databaseMock.Setup(db => db.QuerySingleOrDefault<AdditionalService>(It.IsAny<string>(), It.IsAny<object>(), CommandType.StoredProcedure))
+                .Returns((string procedure, object parameters, CommandType commandType) =>
+                {
+                    var inputParams = (DynamicParameters)parameters;
+                    var id = inputParams.Get<int>("@AdditionalServiceId");
+                    var additionalService = GetSampleAdditionalServices().FirstOrDefault(s => s.AdditionalServiceId == id);
+                    return additionalService;
+                });
+
+            var repository = new RepositoryAdditionalService(databaseMock.Object);  
+
+            var result = repository.FindByID(999);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void FindById_ThrowsExceptionOnDatabaseError()
+        {
+            var databaseMock = new Mock<IDatabaseOperations>();
+            databaseMock.Setup(db => db.QuerySingleOrDefault<AdditionalService>(It.IsAny<string>(), It.IsAny<object>(), CommandType.StoredProcedure))
+                    .Throws(new Exception("Database error occurred"));
+
+            var repository = new RepositoryAdditionalService(databaseMock.Object);
+
+            Assert.Throws<Exception>(() => repository.FindByID(1));
+        }
+
 
         private List<AdditionalService> GetSampleAdditionalServices()
         {
