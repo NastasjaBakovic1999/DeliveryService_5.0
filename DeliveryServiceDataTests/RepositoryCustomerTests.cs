@@ -91,8 +91,8 @@ namespace DeliveryServiceDataTests
                 {
                     var inputParams = (DynamicParameters)parameters;
                     var id = inputParams.Get<int>("@CustomerId");
-                    var shipmentWeight = GetSampleCustomers().FirstOrDefault(s => s.Id == id);
-                    return shipmentWeight;
+                    var customer = GetSampleCustomers().FirstOrDefault(s => s.Id == id);
+                    return customer;
                 });
 
             var repository = new RepositoryCustomer(databaseMock.Object);
