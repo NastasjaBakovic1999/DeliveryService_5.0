@@ -101,11 +101,7 @@ namespace DeliveryServiceApp.Controllers
                     }
                 };
 
-                Random rand = new Random();
-                const string chars = "0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
-                shipment.ShipmentCode = new string(Enumerable.Repeat(chars, 11)
-                                                              .Select(s => s[rand.Next(chars.Length)])
-                                                              .ToArray());
+                shipment.ShipmentCode = GetShipmentCode();
 
 
                 int userId = -1;
@@ -146,6 +142,33 @@ namespace DeliveryServiceApp.Controllers
             {
                 return RedirectToAction("Error", "Home", new { Message = ex.Message });
             }
+        }
+
+        private string GetShipmentCode()
+        {
+            Random rand =  new Random();
+            const string chars = "0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
+            char[] randomChars = new char[11];
+
+            randomChars[0] = chars[rand.Next(0, 10)];  // Number
+            randomChars[1] = chars[rand.Next(10, 36)]; // Uppercase letter
+            randomChars[2] = chars[rand.Next(36, 62)]; // Lowercase letter
+
+            for (int i = 3; i < 11; i++)
+            {
+                randomChars[i] = chars[rand.Next(chars.Length)];
+            }
+
+            for (int i = randomChars.Length - 1; i > 0; i--)
+            {
+                int j = rand.Next(i + 1);
+                char temp = randomChars[i];
+                randomChars[i] = randomChars[j];
+                randomChars[j] = temp;
+            }
+
+            string shipmentCode = new string(randomChars);
+            return shipmentCode;
         }
 
         [Authorize(Roles = "User")]

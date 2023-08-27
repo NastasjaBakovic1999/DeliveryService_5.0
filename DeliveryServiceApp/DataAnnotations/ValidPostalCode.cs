@@ -7,6 +7,8 @@ namespace DeliveryServiceApp.DataAnnotations
     {
         public override bool IsValid(object value)
         {
+            if(value == null) return false;
+
             if (value != null)
             {
                 if (!Regex.IsMatch(value.ToString(), "^[0-9]{5,5}$"))

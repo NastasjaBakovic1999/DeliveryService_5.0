@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace DeliveryServiceAppTests
+namespace DeliveryServiceServicesTests
 {
 
 	public class AdditionalServiceShipmentTests

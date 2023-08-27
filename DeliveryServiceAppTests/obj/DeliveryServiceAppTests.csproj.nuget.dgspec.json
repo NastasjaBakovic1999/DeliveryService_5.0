@@ -35,12 +35,6 @@
             "projectReferences": {
               "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj": {
                 "projectPath": "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceApp\\DeliveryServiceApp.csproj"
-              },
-              "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj": {
-                "projectPath": "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceData\\DeliveryServiceData.csproj"
-              },
-              "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj": {
-                "projectPath": "C:\\Users\\Nastasja\\Desktop\\moja fasciklica\\DeliveryService_5.0\\DeliveryServiceServices\\DeliveryServiceServices.csproj"
               }
             }
           }
@@ -57,17 +51,13 @@
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[16.11.0, )"
-            },
-            "Moq": {
-              "target": "Package",
-              "version": "[4.17.2, )"
+              "version": "[17.1.0, )"
             },
             "coverlet.collector": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.0, )"
+              "version": "[3.1.2, )"
             },
             "xunit": {
               "target": "Package",
@@ -262,7 +252,7 @@
           "dependencies": {
             "Dapper": {
               "target": "Package",
-              "version": "[2.0.143, )"
+              "version": "[2.0.151, )"
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
@@ -338,6 +328,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.151, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.13, )"

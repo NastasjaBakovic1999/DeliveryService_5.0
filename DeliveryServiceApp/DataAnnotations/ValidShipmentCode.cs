@@ -7,9 +7,11 @@ namespace DeliveryServiceApp.DataAnnotations
     {
         public override bool IsValid(object value)
         {
+            if(value == null) return false;
+
             if (value != null)
             {
-                if (!Regex.IsMatch(value.ToString(), "^[a-zA-Z0-9]{11,11}$"))
+                if (!Regex.IsMatch(value.ToString(), "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9]{11}$"))
                 {
                     return false;
                 }

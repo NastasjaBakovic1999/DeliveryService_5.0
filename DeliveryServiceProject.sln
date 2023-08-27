@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryServiceDomain", "De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryServiceApp", "DeliveryServiceApp\DeliveryServiceApp.csproj", "{7A25AF51-259F-4640-8791-1CF7FAC70697}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryServiceServicesTests", "DeliveryServiceAppTests\DeliveryServiceServicesTests.csproj", "{554D3FFF-6715-49C2-A684-29A7A48D1C17}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryServiceServices", "DeliveryServiceServices\DeliveryServiceServices.csproj", "{39418BA5-410D-42A2-B6FE-DFE32B7F5808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryServiceDataTests", "DeliveryServiceDataTests\DeliveryServiceDataTests.csproj", "{A600FAEC-61EA-4C7C-8347-557C9EB6E5E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryServiceDataTests", "DeliveryServiceDataTests\DeliveryServiceDataTests.csproj", "{A600FAEC-61EA-4C7C-8347-557C9EB6E5E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryServiceServicesTests", "DeliveryServiceServicesTests\DeliveryServiceServicesTests.csproj", "{03EBBFBF-B3BC-4CE3-BD38-9AFC792BF62D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryServiceAppTests", "DeliveryServiceAppTests\DeliveryServiceAppTests.csproj", "{9C4A76B5-DD0B-4692-9C75-5CF57ABB434F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +35,6 @@ Global
 		{7A25AF51-259F-4640-8791-1CF7FAC70697}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A25AF51-259F-4640-8791-1CF7FAC70697}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A25AF51-259F-4640-8791-1CF7FAC70697}.Release|Any CPU.Build.0 = Release|Any CPU
-		{554D3FFF-6715-49C2-A684-29A7A48D1C17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{554D3FFF-6715-49C2-A684-29A7A48D1C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{554D3FFF-6715-49C2-A684-29A7A48D1C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{554D3FFF-6715-49C2-A684-29A7A48D1C17}.Release|Any CPU.Build.0 = Release|Any CPU
 		{39418BA5-410D-42A2-B6FE-DFE32B7F5808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{39418BA5-410D-42A2-B6FE-DFE32B7F5808}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39418BA5-410D-42A2-B6FE-DFE32B7F5808}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +43,14 @@ Global
 		{A600FAEC-61EA-4C7C-8347-557C9EB6E5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A600FAEC-61EA-4C7C-8347-557C9EB6E5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A600FAEC-61EA-4C7C-8347-557C9EB6E5E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03EBBFBF-B3BC-4CE3-BD38-9AFC792BF62D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03EBBFBF-B3BC-4CE3-BD38-9AFC792BF62D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03EBBFBF-B3BC-4CE3-BD38-9AFC792BF62D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03EBBFBF-B3BC-4CE3-BD38-9AFC792BF62D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C4A76B5-DD0B-4692-9C75-5CF57ABB434F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C4A76B5-DD0B-4692-9C75-5CF57ABB434F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C4A76B5-DD0B-4692-9C75-5CF57ABB434F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C4A76B5-DD0B-4692-9C75-5CF57ABB434F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
